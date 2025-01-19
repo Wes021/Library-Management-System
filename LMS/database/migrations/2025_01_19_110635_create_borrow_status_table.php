@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('borrow_status', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->integer('borrow_status_id');
+            $table->string('borrow_status');
+            
         });
     }
 

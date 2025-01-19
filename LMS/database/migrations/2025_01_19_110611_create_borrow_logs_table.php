@@ -12,7 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('borrow_logs', function (Blueprint $table) {
-            $table->id();
+            $table->integer('borrow_log_id');
+            $table->integer('borrow_id');
+            $table->integer('user_id');
+            $table->integer('book_id');
+            $table->string('action');
+            $table->string('noted');
             $table->timestamps();
         });
     }

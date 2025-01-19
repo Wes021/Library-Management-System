@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('borrowing', function (Blueprint $table) {
-            $table->id();
+            $table->integer('borrow_id')->primary();
+            $table->integer('user_id');
+            $table->integer('book_id');
+            $table->integer('book_status_id');
+            $table->timestamp('borrowed_at');
+            $table->timestamp('returned_at');
+            $table->decimal('fine_amount');
             $table->timestamps();
         });
     }
