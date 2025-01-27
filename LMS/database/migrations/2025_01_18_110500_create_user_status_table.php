@@ -12,16 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_status', function (Blueprint $table) {
-            $table->integer('user_status_id')->primary();
+            $table->integer('user_status_id')->primary(); // Non-incremental integer primary key
             $table->string('user_status')->unique();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('user_status');
     }
+    
 };

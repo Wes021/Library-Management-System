@@ -10,18 +10,19 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('admin', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('admin', function (Blueprint $table) {
+        $table->integer('admin_id')->primary(); // Non-incremental integer primary key
+        $table->string('name');
+        $table->string('email');
+        $table->string('password');
+        $table->foreignId('role_id')->constrained()->onDelete('cascade');
+    });
+}
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('admin');
-    }
+public function down(): void
+{
+    Schema::dropIfExists('admin');
+}
+
 };

@@ -12,16 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin_logs', function (Blueprint $table) {
-            $table->id();
+            $table->integer('admin_logs_id')->primary(); // Non-incremental integer primary key
+            $table->string('action');
+            $table->string('description');
             $table->timestamps();
+            $table->foreignId('admin_id')->constrained()->onDelete('cascade');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('admin_logs');
     }
+    
 };

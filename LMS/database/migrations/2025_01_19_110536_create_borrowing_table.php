@@ -10,24 +10,28 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('borrowing', function (Blueprint $table) {
-            $table->integer('borrow_id')->primary();
-            $table->integer('user_id');
-            $table->integer('book_id');
-            $table->integer('book_status_id');
-            $table->timestamp('borrowed_at');
-            $table->timestamp('returned_at');
-            $table->decimal('fine_amount');
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('borrowing', function (Blueprint $table) {
+        $table->integer('borrow_id')->primary(); // Non-incremental integer primary key
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('borrowing');
-    }
+        $table->integer('user_id');
+        $table->foreign('user_id')->references('user_id')->on('user')->onDelete('cascade');
+       
+        $table->integer('book_id');
+        $table->foreign('book_id')->references('book_id')->on('books')->onDelete('cascade'); 
+
+        $table->integer('borrow_status_id');
+        $table->foreign('borrow_status_id')->references('borrow_status_id')->on('borrow_status')->onDelete('cascade');
+        $table->timestamp('borrowed_at');
+        $table->timestamp('returned_at');
+        $table->decimal('fine_amount');
+        $table->timestamps();
+    });
+}
+
+public function down(): void
+{
+    Schema::dropIfExists('borrowing');
+}
+
 };

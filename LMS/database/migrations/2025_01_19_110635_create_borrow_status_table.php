@@ -10,19 +10,16 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('borrow_status', function (Blueprint $table) {
-            $table->integer('borrow_status_id');
-            $table->string('borrow_status');
-            
-        });
-    }
+{
+    Schema::create('borrow_status', function (Blueprint $table) {
+        $table->integer('borrow_status_id')->primary(); // Non-incremental integer primary key
+        $table->string('borrow_status');
+    });
+}
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('borrow_status');
-    }
+public function down(): void
+{
+    Schema::dropIfExists('borrow_status');
+}
+
 };

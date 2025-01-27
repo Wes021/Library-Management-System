@@ -12,16 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin_roles', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->integer('role_id')->primary(); // Non-incremental integer primary key
+            $table->string('role_name');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('admin_roles');
     }
+    
 };

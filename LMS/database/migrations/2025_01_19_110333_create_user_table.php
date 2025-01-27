@@ -10,28 +10,24 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('user', function (Blueprint $table) {
-            $table->integer('user_id')->primary();
-            $table->string('name');
-            $table->string("email");
-            $table->string('password')->unique();
-            $table->string('gender');
-            $table->string('phone_number')->unique();
-            $table->integer('status_id');
-            $table->string('profile_picture')->nullable();
-            
+{
+    Schema::create('user', function (Blueprint $table) {
+        $table->integer('user_id')->primary(); // Non-incremental integer primary key
+        $table->string('name');
+        $table->string('email')->unique();
+        $table->string('password');
+        $table->string('gender');
+        $table->string('phone_number')->unique();
+        $table->integer('user_status_id');
+        $table->foreign('user_status_id')->references('user_status_id')->on('user_status')->onDelete('cascade');
+        $table->string('profile_picture')->nullable();
+        $table->timestamps();
+    });
+}
 
+public function down(): void
+{
+    Schema::dropIfExists('user');
+}
 
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('user');
-    }
 };

@@ -10,18 +10,16 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('book_categories', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('book_categories', function (Blueprint $table) {
+        $table->integer('categories_id')->primary(); // Non-incremental integer primary key
+        $table->string('category_name');
+    });
+}
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('book_categories');
-    }
+public function down(): void
+{
+    Schema::dropIfExists('book_categories');
+}
+
 };

@@ -10,18 +10,16 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('language', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('language', function (Blueprint $table) {
+        $table->integer('language_id')->primary(); // Non-incremental integer primary key
+        $table->string('language_name');
+    });
+}
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('language');
-    }
+public function down(): void
+{
+    Schema::dropIfExists('language');
+}
+
 };
