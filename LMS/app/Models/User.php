@@ -6,25 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    protected $table='user';
+    protected $table = 'user';
+    protected $primaryKey = 'user_id'; // Ensure Laravel knows this is the primary key
+    public $incrementing = false; // Prevent Laravel from auto-incrementing it
+    protected $keyType = 'int'; // Ensure it is treated as an integer
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        if (!isset($this->attributes['user_id'])) {
-            $this->attributes['user_id'] = $this->generateUniqueId();
-        }
-
-        
-    }
-    protected $fillable=[
+    // ✅ Make user_id fillable so Laravel allows it in mass assignment
+    protected $fillable = [
+        'user_id',
         'name',
         'email',
         'password',
-        'gender',
         'phone_number',
-        'profile_picture'
+        'gender',
+        'profile_picture',
     ];
-
 }

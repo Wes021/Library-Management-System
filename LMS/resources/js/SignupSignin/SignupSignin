@@ -1,0 +1,66 @@
+document.addEventListener("DOMContentLoaded", function () {
+    // Handle input focus, blur, and keyup events
+    document.querySelectorAll('.form input, .form textarea').forEach(function (input) {
+        input.addEventListener('keyup', handleInputEvent);
+        input.addEventListener('blur', handleInputEvent);
+        input.addEventListener('focus', handleInputEvent);
+    });
+
+    function handleInputEvent(event) {
+        let label = this.previousElementSibling;
+
+        if (event.type === 'keyup') {
+            if (this.value === '') {
+                label.classList.remove('active', 'highlight');
+            } else {
+                label.classList.add('active', 'highlight');
+            }
+        } else if (event.type === 'blur') {
+            if (this.value === '') {
+                label.classList.remove('active', 'highlight');
+            } else {
+                label.classList.remove('highlight');
+            }
+        } else if (event.type === 'focus') {
+            if (this.value !== '') {
+                label.classList.add('highlight');
+            } else {
+                label.classList.remove('highlight');
+            }
+        }
+    }
+
+    // Handle tab click event
+    document.querySelectorAll('.tab a').forEach(function (tab) {
+        tab.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            let parent = this.parentElement;
+            let siblings = parent.parentElement.children;
+
+            // Remove active class from all siblings
+            for (let sibling of siblings) {
+                sibling.classList.remove('active');
+            }
+
+            // Add active class to clicked tab
+            parent.classList.add('active');
+
+            // Get target content and show it
+            let target = document.querySelector(this.getAttribute('href'));
+            document.querySelectorAll('.tab-content > div').forEach(function (content) {
+                content.style.display = 'none';
+            });
+
+            target.style.display = 'block';
+            target.style.opacity = 0;
+            let fadeIn = setInterval(function () {
+                if (target.style.opacity < 1) {
+                    target.style.opacity = parseFloat(target.style.opacity) + 0.1;
+                } else {
+                    clearInterval(fadeIn);
+                }
+            }, 50);
+        });
+    });
+});
