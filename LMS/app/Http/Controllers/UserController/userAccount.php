@@ -4,11 +4,12 @@ namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Auth\Events\Validated;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class userAccount extends Controller
 {
@@ -44,29 +45,46 @@ class userAccount extends Controller
 
 
 
-    public function SignIn(Request $request){
-        $validated=request()->validate(
-            [
-                'email'=>'required|email',
-                'password'=>'required',
-            ]
-            );
+public function SignIn(Request $request) {
+    $validated = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-            $user=User::where('email', $validated['email'])->first();
+    $user = User::where('email', $validated['email'])->first();
 
-            if($user & Hash::check($validated['password'], $user->password)){
-                Auth::login($user);
-            }
-            else{
-                echo "hey";
-            }
+    if ($user && Hash::check($validated['password'], $user->password)) {
+        Auth::login($user);
+        
+        $request->session()->put('user',[
+            'user_id'=>$user->user_id,
+            'name'=>$user->name,
+            'phone_number'=>$user->phone_number,
             
+        ]);
+
+        return redirect()->route('dashboard');
+
+    } else {
+        return back()->withErrors(['email' => 'Invalid email or password']);
     }
+}
+
+
+    public function UserDashboard(Request $request){
+        $user = $request->session()->get('user');
+        return view('user.dashboard', compact('user'));
+    }
+
 
     public function Logout(){
         Auth::logout();
 
         request()->session()->invalidate();
         //go to sign in
+    }
+
+    public function DeleteAccount(){
+
     }
 }
