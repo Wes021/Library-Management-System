@@ -3,12 +3,32 @@
 namespace App\Http\Controllers\SuperAdminControllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\SuperAdmin;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AdminAuthinticate extends Controller
 {
+
+
+    public function AdminSignin(Request $request){
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $admin=Admin::Where('email',$validated['email'])->first();
+
+        if($admin && Hash::check($validated['password'], $admin->password)){
+            Auth::login($admin);
+            return redirect()->route('addadmin');
+        }
+    }
+
+   
+
+
     public function Addadmin(Request $request){
         // Validate request data
     $validated = $request->validate([
@@ -21,10 +41,10 @@ class AdminAuthinticate extends Controller
     // Generate a unique user_id
     do {
         $randomId = random_int(100000, 999999);
-    } while (SuperAdmin::where('admin_id', $randomId)->exists());
+    } while (Admin::where('admin_id', $randomId)->exists());
     
 
-    SuperAdmin::create([
+    Admin::create([
         'admin_id' => $randomId,  // Ensure this is assigned
         'name' => $validated['name'],
         'email' => $validated['email'],

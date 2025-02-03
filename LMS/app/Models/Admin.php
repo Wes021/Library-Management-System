@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Models;
+use App\Models\Role;
+
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class SuperAdmin extends Model
+class Admin extends Authenticatable
 {
     protected $table = 'Admin';
     public $incrementing = false;
@@ -15,5 +18,12 @@ class SuperAdmin extends Model
         'password',
         'phone_number',
         'gender',
+        'role_id',
     ];
+
+    public function hasRole(string $roleName): bool
+{
+    return Role::where('role_id', $this->role_id)->value('role_name') === $roleName;
+}
+
 }
