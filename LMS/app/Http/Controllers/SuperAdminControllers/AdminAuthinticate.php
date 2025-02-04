@@ -19,23 +19,42 @@ class AdminAuthinticate extends Controller
         ]);
 
         $admin=Admin::Where('email',$validated['email'])->first();
-
-        if($admin && Hash::check($validated['password'], $admin->password)){
+        $adminId=$admin->admin_id;
+        $adminRole=$admin->role_id;
+        if ($admin && Hash::check($validated['password'], $admin->password)) {
+            $adminId = $admin->admin_id;
+            $adminRole = (int) $admin->role_id;
             Auth::login($admin);
-            return redirect()->route('addadmin');
+        
+            if ($adminRole == 1) {
+                echo "super Admin";
+            } elseif ($adminRole == 2) {
+                echo "Admin";
+            } elseif ($adminRole == 3) {
+                echo "not assigned";
+            } else {
+                Auth::logout();
+                echo "can't access";
+            }
+        } else {
+            echo "Invalid email or password";
         }
+        
     }
 
    
 
 
-    public function Addadmin(Request $request){
+
+
+    public function AddAdmin(Request $request){
         // Validate request data
     $validated = $request->validate([
         'name' => 'required|min:3|max:50',
         'email' => 'required|email|unique:user,email',
         'password' => 'required',
         'phone_number' => 'required|unique:user,phone_number',
+        'role'=>'',
     ]);
 
     // Generate a unique user_id
@@ -51,6 +70,7 @@ class AdminAuthinticate extends Controller
         'password' => Hash::make($validated['password']),
         'phone_number' => $validated['phone_number'],
         'gender' => 'Not Specified', // Default value to avoid NULL error
+        'role_id'=>$validated['role'],
         
     ]);
 }

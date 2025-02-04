@@ -1,7 +1,7 @@
 <div id="login">   
     <h1>Welcome Back!</h1>
     
-    <form action="{{ route('adminsigninn') }}" method="get">
+    <form action="{{ route('AdminSignin') }}" method="get">
       @csrf
 
       <div class="field-wrap">

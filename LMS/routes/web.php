@@ -4,7 +4,7 @@ use App\Http\Controllers\AdminControllers\AdminAuthinticate as AdminControllersA
 use App\Http\Controllers\SuperAdminControllers\AdminAuthinticate;
 use App\Http\Controllers\UserController\userAccount;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Middleware\AdminRoleMiddleware;
 // Route::get('/', function () {
 //     return view('LoginSignin.login');
 // });
@@ -23,12 +23,15 @@ Route::get('/login', function () {
     return view('SuperAdmin.Adminsignin');
 })->name('login');
 
-// Route::get('/addadmin',[AdminAuthinticate::class,'Addadmin'])->name('addadmin');
+Route::get('/Addadmin', function () {
+    return view('SuperAdmin.addadmin');
+})->name('Addadmin');
 
-Route::get('/adminsigninn',[AdminAuthinticate::class, 'AdminSignin'])->name('adminsigninn');
+Route::get('/AddAdmin',[AdminAuthinticate::class,'AddAdmin'])->name('AddAdmin');
 
-Route::middleware(['admin_role:not assigned'])->group(function () {
-    Route::get('/addadmin', function () {
-        return 'Welcome, Super Admin!';
-    })->name('addadmin');
-});
+Route::get('/AdminSignin',[AdminAuthinticate::class, 'AdminSignin'])->name('AdminSignin');
+
+
+
+
+
