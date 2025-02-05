@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController\BookManagament;
+use App\Http\Controllers\AdminController\CategoryManagment;
 use App\Http\Controllers\AdminControllers\AdminAuthinticate as AdminControllersAdminAuthinticate;
 use App\Http\Controllers\SuperAdminControllers\AdminAuthinticate;
 use App\Http\Controllers\UserController\userAccount;
@@ -30,6 +32,26 @@ Route::get('/Addadmin', function () {
 Route::get('/AddAdmin',[AdminAuthinticate::class,'AddAdmin'])->name('AddAdmin');
 
 Route::get('/AdminSignin',[AdminAuthinticate::class, 'AdminSignin'])->name('AdminSignin');
+
+Route::get('/Addbook', function () {
+    return view('Admin(employee).BookManagament.addbook');
+})->name('Addbook');
+
+Route::get('/AddBooks', [BookManagament::class, 'AddBook'])->name('AddBook');
+
+Route::get('books/{book_id}/edit',[BookManagament::class,'EditForm'])->name('EditForm');
+Route::post('/books/{book_id}/update', [BookManagament::class, 'UpdateBook'])->name('UpdateBook');
+
+Route::get('/DisplayBooks',[BookManagament::class, 'DisplayBooks'])->name('DisplayBooks');
+
+Route::get('/DeleteBook/{book_id}/delete',[BookManagament::class, 'DeleteBook'])->name('DeleteBook');
+
+Route::get('/DisplayCategories',[CategoryManagment::class,'DisplayCategories'])->name('DisplayCategories');
+
+Route::get('books/{book_category_id}/editcategory',[CategoryManagment::class,'EditForm'])->name('EditForm');
+
+Route::post('books/{book_category_id}/updatecategory',[CategoryManagment::class,'EditForm'])->name('UpdateCa');
+
 
 
 
