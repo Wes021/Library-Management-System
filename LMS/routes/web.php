@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController\BookManagament;
 use App\Http\Controllers\AdminController\CategoryManagment;
 use App\Http\Controllers\AdminController\LanguagesManagment;
 use App\Http\Controllers\AdminControllers\AdminAuthinticate as AdminControllersAdminAuthinticate;
+use App\Http\Controllers\SuperAdminControllers\EmployeeManagament;
 use App\Http\Controllers\SuperAdminControllers\AdminAuthinticate;
 use App\Http\Controllers\UserController\userAccount;
 use Illuminate\Support\Facades\Route;
@@ -30,9 +31,15 @@ Route::get('/Addadmin', function () {
     return view('SuperAdmin.addadmin');
 })->name('Addadmin');
 
-Route::get('/AddAdmin',[AdminAuthinticate::class,'AddAdmin'])->name('AddAdmin');
+Route::get('/AddAdmin',[EmployeeManagament::class,'AddEmployee'])->name('AddEmployee');
 
 Route::get('/AdminSignin',[AdminAuthinticate::class, 'AdminSignin'])->name('AdminSignin');
+
+
+
+
+
+
 
 Route::get('/Addbook', function () {
     return view('Admin(employee).BookManagament.addbook');

@@ -2,7 +2,7 @@
   <div id="signup">   
     <h1>Sign Up for Free</h1>
     
-    <form action="{{ route('AddAdmin') }}" method="get">
+    <form action="{{ route('AddEmployee') }}" method="get">
       @csrf
     <div class="top-row">
       <div class="field-wrap">
@@ -22,18 +22,10 @@
 
     <div class="field-wrap">
       <label>
-        Phone number<span class="req">*</span>
-      </label>
-      <input name="phone_number" type="text"required autocomplete="off"/>
-    </div>
-    
-    <div class="field-wrap">
-      <label>
         Set A Password<span class="req">*</span>
       </label>
       <input name="password" type="password"required autocomplete="off"/>
     </div>
-
 
     <div class="field-wrap">
       <label>
@@ -46,6 +38,32 @@
         <option value="3">not assigned</option>
         
       </select>
+    </div>
+
+    <div class="field-wrap">
+      <label>
+        Gender<span class="req">*</span>
+      </label>
+      
+      <select name="gender" id="role">
+        <option value="Not Added">Select</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        
+      </select>
+    </div>
+
+    <div class="field-wrap">
+      <label>
+        Phone number<span class="req">*</span>
+      </label>
+      <input name="phone_number" type="text"required autocomplete="off"/>
+    </div>
+    
+   
+
+
+  
 
     </div>
     

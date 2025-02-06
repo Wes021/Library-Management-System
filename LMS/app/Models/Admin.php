@@ -13,9 +13,11 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
-        'phone_number',
-        'gender',
         'role_id',
+        'gender',
+        'phone_number',
+        
+        
     ];
 
     
