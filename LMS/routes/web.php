@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController\BookManagament;
 use App\Http\Controllers\AdminController\CategoryManagment;
+use App\Http\Controllers\AdminController\LanguagesManagment;
 use App\Http\Controllers\AdminControllers\AdminAuthinticate as AdminControllersAdminAuthinticate;
 use App\Http\Controllers\SuperAdminControllers\AdminAuthinticate;
 use App\Http\Controllers\UserController\userAccount;
@@ -63,3 +64,23 @@ Route::get('/Addcategory', function () {
 Route::get('books/{book_category_id}/deletecategory',[CategoryManagment::class,'DeleteCategory'])->name('DeleteCategory');
 
 
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+Route::get('/DisplayLanguages',[LanguagesManagment::class,'DisplayLanguages'])->name('DisplayLanguages');
+
+Route::get('books/{language_id}/editlanguages',[LanguagesManagment::class,'EditForm'])->name('EditLanguageForm');
+
+Route::post('books/{language_id}/updatelanguages',[LanguagesManagment::class,'UpdateLanguages'])->name('UpdateLanguages');
+
+
+
+Route::get('/AddLanguage',[LanguagesManagment::class,'AddLanguage'])->name('AddLanguage');
+
+Route::get('/Addlanguage', function () {
+    return view('Admin(employee).LanguagesCategoriesManagment.Languagess.AddLanguage');
+})->name('Addlanguage');
+
+Route::get('books/{language_id}/deletelanguage',[LanguagesManagment::class,'DeleteLanguage'])->name('DeleteLanguage');
