@@ -12,6 +12,19 @@ class CategoryManagment extends Controller
 
     public function AddCategory(Request $request){
 
+        $validated=$request->validate([
+            'category_name'=>'required',
+        ]);
+
+        do {
+            $randomId = random_int(10, 99);
+        } while (Book::where('book_id', $randomId)->exists());
+
+        Book_category::create([
+            'book_category_id'=>$randomId,
+            'book_category'=>$validated['category_name'],
+        ]);
+
     }
 
 
@@ -30,10 +43,20 @@ class CategoryManagment extends Controller
     }
 
     public function UpdateCategory(Request $request ,$book_category_id){
-        $book_categories=Book_category::findOrFail($book_category_id);
+        $book_category=Book_category::findOrFail($book_category_id);
 
-        $book_categories->update([
+        $book_category->update([
             'book_category'=>$request->book_category,
         ]);
+    }
+
+    public function DeleteCategory($book_category_id){
+        $book_category=Book_category::findOrFail($book_category_id);
+
+        if($book_category->delete()){
+            return redirect()->route('DisplayCategories');
+        } else{
+            echo "Deletion procsses has faild";
+        }
     }
 }

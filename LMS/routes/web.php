@@ -50,10 +50,16 @@ Route::get('/DisplayCategories',[CategoryManagment::class,'DisplayCategories'])-
 
 Route::get('books/{book_category_id}/editcategory',[CategoryManagment::class,'EditForm'])->name('EditForm');
 
-Route::post('books/{book_category_id}/updatecategory',[CategoryManagment::class,'EditForm'])->name('UpdateCa');
+Route::post('books/{book_category_id}/updatecategory',[CategoryManagment::class,'UpdateCategory'])->name('UpdateCa');
 
 
 
+Route::get('/AddCategory',[CategoryManagment::class,'AddCategory'])->name('AddCategory');
 
+Route::get('/Addcategory', function () {
+    return view('Admin(employee)\LanguagesCategoriesManagment\Categories\AddCategory');
+})->name('Addcategory');
+
+Route::get('books/{book_category_id}/deletecategory',[CategoryManagment::class,'DeleteCategory'])->name('DeleteCategory');
 
 

@@ -43,7 +43,7 @@
                     <td>{{ $book_category->book_category }}</td>
                     
                     <td><a href="{{ route('EditForm', ['book_category_id' => $book_category->book_category_id]) }}">Edit</a></td>
-                    <td><a href="{{ route('DeleteBook',['book_id'=>$book_category->book_category_id]) }}">Delete</a></td>
+                    <td><a href="{{ route('DeleteCategory',['book_category_id'=>$book_category->book_category_id]) }}">Delete</a></td>
                 </tr>
             @endforeach
         </tbody>

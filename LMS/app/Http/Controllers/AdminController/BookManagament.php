@@ -80,7 +80,6 @@ class BookManagament extends Controller
     }
 
     public function DeleteBook($book_id){
-        $deleteBook=Book::findOrFail($book_id)->delete();
         $book=Book::findOrFail($book_id);
         if($book->delete()){
             return redirect()->route('DisplayBooks');
