@@ -5,11 +5,50 @@ namespace App\Http\Controllers\SuperAdminControllers;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class EmployeeManagament extends Controller
 {
-    //AddAdmin
+    
+    public function DisplayEmployee(){
+        $employees=DB::table('Admin')
+        ->leftJoin('roles','Admin.role_id','=','roles.role_id')
+        ->select('Admin.*','roles.role_name as role_name')
+        ->get();
+
+        return view('SuperAdmin.EmployeeMagagment.DisplpayEmployee',compact('employees'));
+    }
+    
+    public function EditForm($admin_id){
+        $admin=Admin::findOrFail($admin_id);
+        return view('SuperAdmin.EmployeeMagagment.EditEmployee', compact('admin'));
+    }
+
+    public function UpdateEmployee(Request $request, $admin_id){
+        $admin = Admin::findOrFail($admin_id);
+
+        $admin->update([
+        'name'=>$request->name,
+        'email'=>$request->email,
+        'role_id'=>$request->role_id,
+        'gender'=>$request->gender,
+        'phone_number'=>$request->phone_number,
+        ]);
+    }
+
+
+    public function DeleteEmployee($admin_id){
+        $employee=Admin::findOrFail($admin_id);
+
+        if($employee->delete()){
+            return redirect()->route('DisplayEmployees');
+        }else{
+            echo "Deletion procsses has faild";
+        }
+    }
+
+    
 
     public function AddEmployee(Request $request){
         // Validate request data

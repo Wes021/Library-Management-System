@@ -58,7 +58,7 @@
                     <td>{{ $book->book_status}}</td>
                     <td>{{ $book->fine_rate }}</td>
                     <td>{{ $book->total_copies }}</td>
-                    <td><a href="{{ route('EditForm', ['book_id' => $book->book_id]) }}">Edit</a></td>
+                    <td><a href="{{ route('EditForme', ['book_id' => $book->book_id]) }}">Edit</a></td>
                     <td><a href="{{ route('DeleteBook',['book_id'=>$book->book_id]) }}">Delete</a></td>
                 </tr>
             @endforeach

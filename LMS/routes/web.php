@@ -47,12 +47,17 @@ Route::get('/Addbook', function () {
 
 Route::get('/AddBooks', [BookManagament::class, 'AddBook'])->name('AddBook');
 
-Route::get('books/{book_id}/edit',[BookManagament::class,'EditForm'])->name('EditForm');
+Route::get('books/{book_id}/edit',[BookManagament::class,'EditForm'])->name('EditForme');
+
 Route::post('/books/{book_id}/update', [BookManagament::class, 'UpdateBook'])->name('UpdateBook');
 
 Route::get('/DisplayBooks',[BookManagament::class, 'DisplayBooks'])->name('DisplayBooks');
 
 Route::get('/DeleteBook/{book_id}/delete',[BookManagament::class, 'DeleteBook'])->name('DeleteBook');
+
+
+
+
 
 Route::get('/DisplayCategories',[CategoryManagment::class,'DisplayCategories'])->name('DisplayCategories');
 
@@ -91,3 +96,21 @@ Route::get('/Addlanguage', function () {
 })->name('Addlanguage');
 
 Route::get('books/{language_id}/deletelanguage',[LanguagesManagment::class,'DeleteLanguage'])->name('DeleteLanguage');
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+Route::get('/DisplayEmployees',[EmployeeManagament::class,'DisplayEmployee'])->name('DisplayEmployees');
+
+Route::get('employees/{admin_id}/editemployee',[EmployeeManagament::class,'EditForm'])->name('EditEmployees');
+
+Route::post('employees/{admin_id}/updateemployee',[EmployeeManagament::class,'UpdateEmployee'])->name('UpdateEmployee');
+
+Route::get('employees/{admin_id}/deleteemployee',[EmployeeManagament::class,'DeleteEmployee'])->name('DeleteEmployee');
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
