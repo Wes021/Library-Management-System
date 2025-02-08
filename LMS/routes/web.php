@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController\BookManagament;
 use App\Http\Controllers\AdminController\CategoryManagment;
 use App\Http\Controllers\AdminController\LanguagesManagment;
 use App\Http\Controllers\AdminControllers\AdminAuthinticate as AdminControllersAdminAuthinticate;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SuperAdminControllers\EmployeeManagament;
 use App\Http\Controllers\SuperAdminControllers\AdminAuthinticate;
 use App\Http\Controllers\SuperAdminControllers\RoleManagment;
@@ -142,3 +143,12 @@ Route::post('/users/{user_id}/updateuser', [UserManagament::class, 'UpdateStatus
 Route::get('/DisplayUsers',[UserManagament::class, 'DisplayUsers'])->name('DisplayUsers');
 
 Route::get('/DeleteUser/{user_id}/delete',[UserManagament::class, 'RemoveUser'])->name('RemoveUser');
+
+
+// Route::get('/', function () {
+//     return view('Home');
+// });
+
+Route::get('/', [HomeController::class, 'index'])->name('/');
+
+Route::get('books/{book_id}/bookdetail', [HomeController::class,'BookDetails'])->name('BookDetails');
