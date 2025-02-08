@@ -31,35 +31,27 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>ISBN</th>
-                <th>Publisher</th>
-                <th>Language</th>
-                <th>Year</th>
-                <th>Category</th>
-                <th>Image</th>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>E-mail</th>
+                <th>Gender</th>
+                <th>Phone number</th>
                 <th>Status</th>
-                <th>Fine Rate</th>
-                <th>Total Copies</th>
+                <th>Profile picture</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($books as $book)
+            @foreach ($users as $user)
                 <tr>
-                    <td>{{ $book->book_id }}</td>
-                    <td>{{ $book->book_title }}</td>
-                    <td>{{ $book->ISBN }}</td>
-                    <td>{{ $book->Publisher }}</td>
-                    <td>{{ $book->language_name }}</td>
-                    <td>{{ $book->year }}</td>
-                    <td>{{ $book->book_category}}</td>
-                    <td><img src="{{ $book->image_url }}" alt="Book Image"></td>
-                    <td>{{ $book->book_status}}</td>
-                    <td>{{ $book->fine_rate }}</td>
-                    <td>{{ $book->total_copies }}</td>
-                    <td><a href="{{ route('EditForme', ['book_id' => $book->book_id]) }}">Edit</a></td>
-                    <td><a href="{{ route('DeleteBook',['book_id'=>$book->book_id]) }}">Delete</a></td>
+                    <td>{{ $user->user_id }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ $user->gender }}</td>
+                    <td>{{ $user->phone_number }}</td>
+                    <td>{{ $user->user_status }}</td>
+                    <td>{{$user->profile_picture}}</td>
+                    <td><a href="{{ route('EditUserForm', ['user_id' => $user->user_id]) }}">Change status</a></td>
+                    <td><a href="{{ route('RemoveUser',['user_id'=>$user->user_id]) }}">Delete</a></td>
                 </tr>
             @endforeach
         </tbody>

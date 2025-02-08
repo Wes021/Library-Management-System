@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminControllers\AdminAuthinticate as AdminControllersA
 use App\Http\Controllers\SuperAdminControllers\EmployeeManagament;
 use App\Http\Controllers\SuperAdminControllers\AdminAuthinticate;
 use App\Http\Controllers\SuperAdminControllers\RoleManagment;
+use App\Http\Controllers\SuperAdminControllers\UserManagament;
 use App\Http\Controllers\UserController\userAccount;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminRoleMiddleware;
@@ -134,10 +135,10 @@ Route::get('/Addrole', function () {
 
 
 
-Route::get('users/{user_id}/edituser',[RoleManagment::class,'EditUserForm'])->name('EditUserForm');
+Route::get('users/{user_id}/edituser',[UserManagament::class,'EditUserForm'])->name('EditUserForm');
 
-Route::post('/users/{user_id}/updateuser', [RoleManagment::class, 'UpdateUser'])->name('UpdateUser');
+Route::post('/users/{user_id}/updateuser', [UserManagament::class, 'UpdateStatus'])->name('UpdateStatus');
 
-Route::get('/DisplayUsers',[RoleManagment::class, 'DisplayUsers'])->name('DisplayUsers');
+Route::get('/DisplayUsers',[UserManagament::class, 'DisplayUsers'])->name('DisplayUsers');
 
-Route::get('/DeleteUser/{user_id}/delete',[RoleManagment::class, 'RemoveUser'])->name('RemoveUser');
+Route::get('/DeleteUser/{user_id}/delete',[UserManagament::class, 'RemoveUser'])->name('RemoveUser');
