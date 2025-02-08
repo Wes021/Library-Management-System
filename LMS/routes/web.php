@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController\LanguagesManagment;
 use App\Http\Controllers\AdminControllers\AdminAuthinticate as AdminControllersAdminAuthinticate;
 use App\Http\Controllers\SuperAdminControllers\EmployeeManagament;
 use App\Http\Controllers\SuperAdminControllers\AdminAuthinticate;
+use App\Http\Controllers\SuperAdminControllers\RoleManagment;
 use App\Http\Controllers\UserController\userAccount;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminRoleMiddleware;
@@ -114,3 +115,29 @@ Route::get('employees/{admin_id}/deleteemployee',[EmployeeManagament::class,'Del
 
 
 
+Route::get('/AddRoles', [RoleManagment::class, 'AddRole'])->name('AddRole');
+
+Route::get('roles/{role_id}/editrole',[RoleManagment::class,'EditRoleForm'])->name('EditRoleForm');
+
+Route::post('/role/{role_id}/updaterole', [RoleManagment::class, 'UpdateRole'])->name('UpdateRole');
+
+Route::get('/DisplayRoles',[RoleManagment::class, 'DisplayRoles'])->name('DisplayRoles');
+
+Route::get('/DeleteRoles/{role_id}/delete',[RoleManagment::class, 'RemoveRole'])->name('DeleteRoles');
+
+Route::get('/Addrole', function () {
+    return view('SuperAdmin\RolesManagment\AddRole');
+
+})->name('Addrole');
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+Route::get('users/{user_id}/edituser',[RoleManagment::class,'EditUserForm'])->name('EditUserForm');
+
+Route::post('/users/{user_id}/updateuser', [RoleManagment::class, 'UpdateUser'])->name('UpdateUser');
+
+Route::get('/DisplayUsers',[RoleManagment::class, 'DisplayUsers'])->name('DisplayUsers');
+
+Route::get('/DeleteUser/{user_id}/delete',[RoleManagment::class, 'RemoveUser'])->name('RemoveUser');
