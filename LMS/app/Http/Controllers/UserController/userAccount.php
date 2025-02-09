@@ -63,7 +63,7 @@ public function SignIn(Request $request) {
             
         ]);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('/');
 
     } else {
         return back()->withErrors(['email' => 'Invalid email or password']);
