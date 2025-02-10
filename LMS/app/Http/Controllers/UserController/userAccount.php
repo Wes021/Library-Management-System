@@ -68,7 +68,10 @@ public function SignIn(Request $request) {
         $request->session()->put('user_data',[
             'user_id'=>$user->user_id,
             'name'=>$user->name,
+            'email'=>$user->email,
+            'gender'=>$user->gender,
             'phone_number'=>$user->phone_number,
+            'profile_picture'=>$user->profile_picture
             
         ]);
 
@@ -82,9 +85,9 @@ public function SignIn(Request $request) {
 
 public function UserDashboard(Request $request) {
     // Retrieve user data from session
-    $user_data = $request->session()->get('user_data');
+    $user = $request->session()->get('user_data');
 
-    return view('user.dashboard', compact('user_data'));
+    return view('user.dashboard', compact('user'));
 }
 
 

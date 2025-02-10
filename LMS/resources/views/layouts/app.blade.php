@@ -6,7 +6,7 @@
     <title>My Laravel Project</title>
 </head>
 <body>
-    @include('layouts.UserNavbar') <!-- Include Navbar -->
+    @include('layouts.UserNavbar2') <!-- Include Navbar -->
 
     <div class="content">
         @yield('content')

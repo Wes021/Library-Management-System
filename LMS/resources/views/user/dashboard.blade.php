@@ -85,6 +85,9 @@
     </style>
 </head>
 <body>
+    <br>
+    <br>
+    <br>
     @extends('layouts.app')
 
     @section('content')
@@ -92,18 +95,18 @@
     @endsection
 <div class="container profile-container">
     <div class="profile-header">
-        <img src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-image" id="profileImage">
-        <div class="profile-name" id="profileName">John Doe</div>
+        <img src="{{$user['profile_picture']}}" alt="Profile Picture" class="profile-image" id="profileImage">
+        <div class="profile-name" id="profileName">{{$user['name']}}</div>
     </div>
 
     <div class="profile-info">
-        <h5>Email:</h5>
+        <h5>Email:{{$user['name']}}</h5>
         <p id="profileEmail"></p>
 
-        <h5>Phone Number:</h5>
+        <h5>Phone Number:{{$user['phone_number']}}</h5>
         <p id="profilePhone"></p>
 
-        <h5>Gender:</h5>
+        <h5>Gender:{{$user['gender']}}</h5>
         <p id="profileGender"></p>
     </div>
 
@@ -121,7 +124,7 @@
     </div>
 
     <div class="profile-info">
-        <h5>Email:{{$user_data['name']}}</h5>
+        <h5>Email:</h5>
         <p id="profileEmail"></p>
 
         <h5>Phone Number:</h5>
