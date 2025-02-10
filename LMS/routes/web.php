@@ -20,9 +20,20 @@ use App\Http\Middleware\AdminRoleMiddleware;
 //     return view('LoginSignin.signup');
 // });
 
+Route::get('/userlogin', function () {
+    return view('user.signin');
+})->name('userlogin');
+
+Route::get('/usersignup', function () {
+    return view('user.signup');
+})->name('usersignup');
+
 Route::get('/signup',[userAccount::class,'SignUp'])->name('signup');
 
 Route::post('/signin',[userAccount::class,'SignIn'])->name('signin');
+
+Route::post('/logout', [userAccount::class, 'logout'])->name('logout');
+
 
 Route::get('/dashboard',[userAccount::class, 'UserDashboard'])->name('dashboard');
 

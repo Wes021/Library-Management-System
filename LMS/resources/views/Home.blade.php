@@ -49,8 +49,17 @@
     </style>
 </head>
 <body>
+    @extends('layouts.app')
+
+@section('content')
+    
+@endsection
+
     <div class="container">
-        <h1>Library Books</h1>
+        <br>
+        <br>
+        <br>
+        <br>
         <input type="text" id="search" class="search-bar" placeholder="Search books..." onkeyup="filterBooks()">
         <div class="book-list">
             @foreach ($books as $book)

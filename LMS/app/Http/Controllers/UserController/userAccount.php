@@ -24,6 +24,8 @@ class userAccount extends Controller
         'email' => 'required|email|unique:user,email',
         'password' => 'required',
         'phone_number' => 'required|unique:user,phone_number',
+        'gender'=>'required',
+        'profile_picture'=>''
     ]);
 
     // Generate a unique user_id
@@ -32,15 +34,22 @@ class userAccount extends Controller
     } while (User::where('user_id', $randomId)->exists());
 
     // Create the new user
-    User::create([
+   $newuser= User::create([
         'user_id' => $randomId,  // Ensure this is assigned
         'name' => $validated['name'],
         'email' => $validated['email'],
         'password' => Hash::make($validated['password']),
         'phone_number' => $validated['phone_number'],
-        'gender' => 'Not Specified', // Default value to avoid NULL error
-        'profile_picture' => null,  // Allow null for now
+        'gender' => $validated['gender'], // Default value to avoid NULL error
+        'profile_picture' => $validated['profile_picture'],  // Allow null for now
     ]);
+
+    if($newuser){
+        return redirect()->route('/');
+    }
+    else{
+        return redirect()->back();
+    }
 }
 
 
@@ -56,7 +65,7 @@ public function SignIn(Request $request) {
     if ($user && Hash::check($validated['password'], $user->password)) {
         Auth::login($user);
         
-        $request->session()->put('user',[
+        $request->session()->put('user_data',[
             'user_id'=>$user->user_id,
             'name'=>$user->name,
             'phone_number'=>$user->phone_number,
@@ -71,18 +80,21 @@ public function SignIn(Request $request) {
 }
 
 
-    public function UserDashboard(Request $request){
-        $user = $request->session()->get('user');
-        return view('user.dashboard', compact('user'));
-    }
+public function UserDashboard(Request $request) {
+    // Retrieve user data from session
+    $user_data = $request->session()->get('user_data');
+
+    return view('user.dashboard', compact('user_data'));
+}
 
 
-    public function Logout(){
-        Auth::logout();
+    public function logout(Request $request)
+{
+    Auth::logout();
+    $request->session()->forget('user');
+    return redirect()->route('/');
+}
 
-        request()->session()->invalidate();
-        //go to sign in
-    }
 
     public function DeleteAccount(){
 
