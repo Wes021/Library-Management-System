@@ -49,11 +49,11 @@
     </style>
 </head>
 <body>
-    @extends('layouts.app')
+    @include('layouts.UserNavbar2') <!-- Navbar is included -->
 
-@section('content')
-    
-@endsection
+    <div class="content">
+        
+    </div>
 
     <div class="container">
         <br>

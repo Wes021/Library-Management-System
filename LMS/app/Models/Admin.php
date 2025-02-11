@@ -17,10 +17,7 @@ class Admin extends Authenticatable
         'role_id',
         'gender',
         'phone_number',
-        
-        
+
+
     ];
-
-    
 }
-

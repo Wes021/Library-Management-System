@@ -12,20 +12,21 @@ class AdminAuthinticate extends Controller
 {
 
 
-    public function AdminSignin(Request $request){
+    public function AdminSignin(Request $request)
+    {
         $validated = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        $admin=Admin::Where('email',$validated['email'])->first();
-        $adminId=$admin->admin_id;
-        $adminRole=$admin->role_id;
+        $admin = Admin::Where('email', $validated['email'])->first();
+        $adminId = $admin->admin_id;
+        $adminRole = $admin->role_id;
         if ($admin && Hash::check($validated['password'], $admin->password)) {
             $adminId = $admin->admin_id;
             $adminRole = (int) $admin->role_id;
             Auth::login($admin);
-        
+
             if ($adminRole == 1) {
                 echo "super Admin";
             } elseif ($adminRole == 2) {
@@ -39,9 +40,5 @@ class AdminAuthinticate extends Controller
         } else {
             echo "Invalid email or password";
         }
-        
     }
-
-   
-
 }

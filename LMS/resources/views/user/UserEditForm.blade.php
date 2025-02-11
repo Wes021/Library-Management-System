@@ -97,54 +97,46 @@
         
     </div>
     <div class="container profile-container">
+        <form action="{{ route('UpdateUser',$user->user_id) }}" method="POST">
+            @csrf
         <div class="profile-header">
-            <img src="{{ $user['profile_picture'] }}" alt="Profile Picture" class="profile-image" id="profileImage">
-            <div class="profile-name" id="profileName">{{ $user['name'] }}</div>
+            <img src="{{ $user->profile_picture }}" alt="Profile Picture" class="profile-image" id="profileImage">
+            <div class="profile-name" id="profileName">Edit profile image
+                <input type="text" name="profile_picture" value="{{ $user->profile_picture }}" required>
+            </div>
+
         </div>
 
         <div class="profile-info">
-            <h5>Email:{{ $user['name'] }}</h5>
-            <p id="profileEmail"></p>
+            <h5>name:</h5>
+            <input type="text" name="name" value="{{ $user->name }}" required>
 
-            <h5>Phone Number:{{ $user['phone_number'] }}</h5>
-            <p id="profilePhone"></p>
+            <h5>Email:</h5>
+            <input type="email" name="email" value="{{ $user->email }}" required>
 
-            <h5>Gender:{{ $user['gender'] }}</h5>
-            <p id="profileGender"></p>
+            
+            <select name="gender" id="role">
+                <option value="Not Added"{{ $user->gender == "Not Specified" ? 'selected' : '' }}>Not Added</option>
+                <option value="Male"{{ $user->gender == "Male" ? 'selected' : '' }}>Male</option>
+                <option value="Female"{{ $user->gender == 'Female' ? 'selected' : '' }}>Female</option>
+                
+              </select>
+
+              <h5>phone number:</h5>
+            <input type="text" name="phone_number" value="{{ $user->phone_number }}" required>
+
+            
+
+
+              
         </div>
+        
+        <button class="btn-edit" id="editProfileBtn" type="submit">Edit</button>
+        </form>
 
-        <div class="profile-bio">
-            <h5>Bio:</h5>
-            <p id="profileBio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac urna eu purus
-                sollicitudin tincidunt. Sed auctor felis ac tortor bibendum.</p>
-        </div>
-        <a href="{{ route('UserEditForm', ['user_id' => $user['user_id']]) }}">Edit</a><br>
-        <a href="{{ route('DeleteUserAccount',['user_id' => $user['user_id']]) }}">Delete Account</a>
         
     </div>
-    <div class="container profile-container">
-        <div class="profile-header">
-            <img src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-image" id="profileImage">
-            <div class="profile-name" id="profileName">John Doe</div>
-        </div>
-
-        <div class="profile-info">
-            <h5>Email:</h5>
-            <p id="profileEmail"></p>
-
-            <h5>Phone Number:</h5>
-            <p id="profilePhone"></p>
-
-            <h5>Gender:</h5>
-            <p id="profileGender"></p>
-        </div>
-
-        <div class="profile-bio">
-            <h5>Bio:</h5>
-            <p id="profileBio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac urna eu purus
-                sollicitudin tincidunt. Sed auctor felis ac tortor bibendum.</p>
-        </div>
-        <a href="#" class="btn-edit" id="editProfileBtn">Edit Profile</a>
+    
         
     </div>
 </body>

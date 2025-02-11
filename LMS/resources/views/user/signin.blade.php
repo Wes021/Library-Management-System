@@ -30,6 +30,7 @@
 
                         <button type="submit" class="btn btn-primary w-100">Log in</button>
                     </form>
+                    <a href="{{ route('usersignup') }}">Don't have an Account? Join us</a>
                 </div>
             </div>
         </div>

@@ -9,46 +9,50 @@ use Illuminate\Support\Facades\DB;
 
 class RoleManagment extends Controller
 {
-    public function AddRole(Request $request){
-        $validated=$request->validate([
-            'role_name'=>'required|unique:roles,role_name',
+    public function AddRole(Request $request)
+    {
+        $validated = $request->validate([
+            'role_name' => 'required|unique:roles,role_name',
         ]);
 
-       
+
 
         Role::create([
-            
-            'role_name'=>$validated['role_name']
+
+            'role_name' => $validated['role_name']
         ]);
     }
 
 
-    public function DisplayRoles(){
-        $roles=DB::table('roles')
-        ->select('roles.*')
-        ->get();
+    public function DisplayRoles()
+    {
+        $roles = DB::table('roles')
+            ->select('roles.*')
+            ->get();
 
         return view('SuperAdmin.RolesManagment.DisplayRoles', compact('roles'));
-
-    }
-    
-    public function EditRoleForm($role_id){
-        $role=Role::findOrFail($role_id);
-
-        return view('SuperAdmin.RolesManagment.EditRole',compact('role'));
     }
 
-    public function UpdateRole(Request $request,$role_id){
-        $role=Role::findOrFail($role_id);
+    public function EditRoleForm($role_id)
+    {
+        $role = Role::findOrFail($role_id);
+
+        return view('SuperAdmin.RolesManagment.EditRole', compact('role'));
+    }
+
+    public function UpdateRole(Request $request, $role_id)
+    {
+        $role = Role::findOrFail($role_id);
 
         $role->update([
-            'role_name'=>$request->role_name
+            'role_name' => $request->role_name
         ]);
     }
 
-    public function RemoveRole($role_id){
-        $role=Role::findOrFail($role_id);
-        if($role->delete()){
+    public function RemoveRole($role_id)
+    {
+        $role = Role::findOrFail($role_id);
+        if ($role->delete()) {
             return redirect()->back();
         }
     }

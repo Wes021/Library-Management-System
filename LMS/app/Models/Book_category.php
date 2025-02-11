@@ -16,5 +16,4 @@ class Book_category extends Model
         'book_category_id',
         'book_category',
     ];
-
 }
