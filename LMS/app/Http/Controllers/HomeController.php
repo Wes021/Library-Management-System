@@ -22,6 +22,9 @@ class HomeController extends Controller
 
     public function BookDetails($book_id)
     {
+        
+
+
         $book = DB::table('book')->where('book_id', $book_id)
             ->leftJoin('language', 'book.Language', '=', 'language.language_id')
             ->leftJoin('book_category', 'book.category', '=', 'book_category.book_category_id')
