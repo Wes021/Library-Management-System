@@ -109,4 +109,8 @@ class UserServices extends Controller
             ]);
         }
     }
+
+    public function DisplayBorrows(){
+        
+    }
 }
