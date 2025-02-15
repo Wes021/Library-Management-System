@@ -91,7 +91,7 @@
     <br>
     <br>
     @include('layouts.UserNavbar2') <!-- Always Include Navbar -->
-   
+   @include('layouts.UserSideNavbar')
 
     <div class="content">
         

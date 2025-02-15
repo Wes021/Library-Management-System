@@ -1,227 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar Menu | Side Navigation Bar</title>
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Boxicons CSS -->
-    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
-
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        /* Google Fonts - Poppins */
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
-
-        body {
-            min-height: 100%;
-            background: #e3f2fd;
-        }
-
-        .sidenavbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 70px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            background: #fff;
-            box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
-        }
-
-        .sidenavbar .logo {
-            display: flex;
-            align-items: center;
-            margin: 0 24px;
-        }
-
-        .logo .menu-icon {
-            color: #333;
-            font-size: 24px;
-            margin-right: 14px;
-            cursor: pointer;
-        }
-
-        .logo .logo-name {
-            color: #333;
-            font-size: 22px;
-            font-weight: 500;
-        }
-
-        .sidenavbar .sidebar {
-            position: fixed;
-            top: 0;
-            left: -100%;
+        /* The side navigation menu */
+        .sidenav {
             height: 100%;
-            width: 260px;
-            padding: 20px 0;
-            background-color: #fff;
-            box-shadow: 0 5px 1px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
-        }
-
-        .sidenavbar.open .sidebar {
+            /* 100% Full-height */
+            width: 0;
+            /* 0 width - change this with JavaScript */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Stay on top */
+            top: 3;
+            /* Stay at the top */
             left: 0;
+            background-color: #3E8DA8;
+            /* Black*/
+            overflow-x: hidden;
+            /* Disable horizontal scroll */
+            padding-top: 60px;
+            /* Place content 60px from the top */
+            transition: 0.5s;
+            /* 0.5 second transition effect to slide in the sidenav */
+            
         }
 
-        .sidebar .sidebar-content {
-            display: flex;
-            height: 100%;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 30px 16px;
-        }
-
-        .sidebar-content .lists {
-            list-style: none;
-        }
-
-        .lists .nav-link {
-            display: flex;
-            align-items: center;
-            margin: 8px 0;
-            padding: 14px 12px;
-            border-radius: 8px;
+        /* The navigation menu links */
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
             text-decoration: none;
+            font-size: 25px;
+            color: #fff1f1;
+            display: block;
+            transition: 0.3s;
+            
         }
 
-        .lists .nav-link:hover {
-            background-color: #4070f4;
+        /* When you mouse over the navigation links, change their color */
+        .sidenav a:hover {
+            color: #f1f1f1;
         }
 
-        .nav-link .icon {
-            margin-right: 14px;
-            font-size: 20px;
-            color: #707070;
-        }
-
-        .nav-link .link {
-            font-size: 16px;
-            color: #707070;
-            font-weight: 400;
-        }
-
-        .lists .nav-link:hover .icon,
-        .lists .nav-link:hover .link {
-            color: #fff;
-        }
-
-        .overlay {
-            position: fixed;
+        /* Position and style the close button (top right corner) */
+        .sidenav .closebtn {
+            position: absolute;
             top: 0;
-            left: -100%;
-            height: 100vh;
-            width: 100vw;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.4s ease;
-            background: rgba(0, 0, 0, 0.3);
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
         }
 
-        .sidenavbar.open ~ .overlay {
-            opacity: 1;
-            left: 260px;
-            pointer-events: auto;
+        /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+        #main {
+            transition: margin-left .5s;
+            padding: 20px;
+        }
+
+        /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
+
 <body>
-    <nav class="sidenavbar">
-        <div class="logo">
-            <i class="bx bx-menu menu-icon"></i>
-            <span class="logo-name">CodingLab</span>
-        </div>
-        <div class="sidebar">
-            <div class="logo">
-                <i class="bx bx-menu menu-icon"></i>
-                <span class="logo-name">CodingLab</span>
-            </div>
-            <div class="sidebar-content">
-                <ul class="lists">
-                    <li class="list">
-                        <a href="#" class="nav-link">
-                            <i class="bx bx-home-alt icon"></i>
-                            <span class="link">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="list">
-                        <a href="#" class="nav-link">
-                            <i class="bx bx-bar-chart-alt-2 icon"></i>
-                            <span class="link">Revenue</span>
-                        </a>
-                    </li>
-                    <li class="list">
-                        <a href="#" class="nav-link">
-                            <i class="bx bx-bell icon"></i>
-                            <span class="link">Notifications</span>
-                        </a>
-                    </li>
-                    <li class="list">
-                        <a href="#" class="nav-link">
-                            <i class="bx bx-message-rounded icon"></i>
-                            <span class="link">Messages</span>
-                        </a>
-                    </li>
-                    <li class="list">
-                        <a href="#" class="nav-link">
-                            <i class="bx bx-pie-chart-alt-2 icon"></i>
-                            <span class="link">Analytics</span>
-                        </a>
-                    </li>
-                    <li class="list">
-                        <a href="#" class="nav-link">
-                            <i class="bx bx-heart icon"></i>
-                            <span class="link">Likes</span>
-                        </a>
-                    </li>
-                    <li class="list">
-                        <a href="#" class="nav-link">
-                            <i class="bx bx-folder-open icon"></i>
-                            <span class="link">Files</span>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="lists bottom-content">
-                    <li class="list">
-                        <a href="#" class="nav-link">
-                            <i class="bx bx-cog icon"></i>
-                            <span class="link">Settings</span>
-                        </a>
-                    </li>
-                    <li class="list">
-                        <a href="#" class="nav-link">
-                            <i class="bx bx-log-out icon"></i>
-                            <span class="link">Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <section class="overlay"></section>
+    
+    
+    <div id="mySidenav" class="sidenav">
+      
+        
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <!-- Use any element to open the sidenav -->
+    <span onclick="openNav()"><i class="fa fa-navicon" style="font-size:24px"></i></span>
+
+    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+    
+
     <script>
-        const navBar = document.querySelector("nav"),
-              menuBtns = document.querySelectorAll(".menu-icon"),
-              overlay = document.querySelector(".overlay");
+        /* Set the width of the side navigation to 250px */
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
 
-        menuBtns.forEach((menuBtn) => {
-            menuBtn.addEventListener("click", () => {
-                navBar.classList.toggle("open");
-            });
-        });
-
-        overlay.addEventListener("click", () => {
-            navBar.classList.remove("open");
-        });
+        /* Set the width of the side navigation to 0 */
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
     </script>
 </body>
+
 </html>
