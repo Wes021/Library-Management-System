@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -90,36 +90,59 @@
     <br>
     <br>
     <br>
-    @include('layouts.AdminNavbar') <!-- Always Include Navbar -->
+    
+    @include('layouts.UserNavbar2') <!-- Always Include Navbar -->
+   @include('layouts.UserSideNavbar')
+   @if(session('success'))
+   <div class="alert alert-success">
+       {{ session('success') }}
+   </div>
+@endif
 
+@if(session('error'))
+   <div class="alert alert-danger">
+       {{ session('error') }}
+   </div>
+@endif
     <div class="content">
         
     </div>
     <div class="container profile-container">
-       
-
+        <div class="profile-header">
+            
+            <div class="profile-name" id="profileName">Borrow Details</div>
+        </div>
+        @foreach ($borrows as $borrow)
         <div class="profile-info">
-            <h5>ID:</h5>
-            <p id="profileEmail">{{$superadmin['admin_id']}}</p>
+            <h5>Borrow ID:</h5>
+            <p id="profileEmail">{{$borrow->borrow_id}}</p>
 
-            <h5>Name:</h5>
-            <p id="profilePhone">{{$superadmin['name']}}</p>
+            <h5>Book id:</h5>
+            <p id="profilePhone">{{$borrow->book_id}}</p>
 
-            <h5>Email</h5>
-            <p id="profileGender">{{$superadmin['email']}}</p>
+            <h5>ISBN</h5>
+            <p id="profileGender">{{$borrow->ISBN}}</p>
 
-            <h5>Gender:</h5>
-            <p id="profileGender">{{$superadmin['gender']}}</p>
+            <h5>Book Name</h5>
+            <p id="profileGender">{{$borrow->book_title}}</p>
 
-            <h5>Phone Number</h5>
-            <p id="profileEmail">{{$superadmin['phone_number']}}</p>
+            <h5>From:</h5>
+            <p id="profileGender">{{$borrow->borrowed_at}}</p>
 
+            <h5>To:</h5>
+            <p id="profileGender">{{$borrow->return_at}}</p>
+
+            <h5>Status</h5>
+            <p id="profileGender">{{$borrow->borrow_status}}</p>
+
+            <h5>Created:</h5>
+            <p id="profileGender">{{$borrow->created_at}}</p>
         </div>
 
-        <a href="{{ route('SuperAdminEditForm', ['admin_id' => $superadmin['admin_id']]) }}">Edit</a><br>
-        
+        <a href="{{ route('DeleteBorrow',['borrow_id' => $borrow->borrow_id]) }}">Delete Borrow</a>
         
     </div>
+    @endforeach
 </body>
 
 </html>

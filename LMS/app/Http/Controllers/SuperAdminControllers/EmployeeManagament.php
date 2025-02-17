@@ -82,5 +82,7 @@ class EmployeeManagament extends Controller
             'gender' => $validated['gender'],
             'phone_number' => $validated['phone_number'],
         ]);
+
+        return redirect()->back();
     }
 }

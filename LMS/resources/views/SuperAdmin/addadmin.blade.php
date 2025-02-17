@@ -1,75 +1,136 @@
-<div class="tab-content">
-  <div id="signup">   
-    <h1>Sign Up for Free</h1>
-    
-    <form action="{{ route('AddEmployee') }}" method="get">
-      @csrf
-    <div class="top-row">
-      <div class="field-wrap">
-        <label>
-          First Name<span class="req">*</span>
-        </label>
-        <input name="name" type="text" required autocomplete="off" />
-      </div>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Add Employee</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-    <div class="field-wrap">
-      <label>
-        Email Address<span class="req">*</span>
-      </label>
-      <input name="email" type="email"required autocomplete="off"/>
-    </div>
+    body {
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-    <div class="field-wrap">
-      <label>
-        Set A Password<span class="req">*</span>
-      </label>
-      <input name="password" type="password"required autocomplete="off"/>
-    </div>
+    .container {
+      width: 100%;
+      max-width: 700px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 160px
+    }
 
-    <div class="field-wrap">
-      <label>
-        choose a role<span class="req">*</span>
-      </label>
-      
-      <select name="role" id="role">
-        <option value="1">super admin</option>
-        <option value="2">admin</option>
-        <option value="3">not assigned</option>
-        
-      </select>
-    </div>
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-    <div class="field-wrap">
-      <label>
-        Gender<span class="req">*</span>
-      </label>
-      
-      <select name="gender" id="role">
-        <option value="Not Added">Select</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        
-      </select>
-    </div>
+    .field-wrap {
+      margin-bottom: 15px;
+    }
 
-    <div class="field-wrap">
-      <label>
-        Phone number<span class="req">*</span>
-      </label>
-      <input name="phone_number" type="text"required autocomplete="off"/>
-    </div>
-    
-   
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
 
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
 
+    .button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <br>
+    <br>
+    <br>
+    <br>
+    <br><br>
+  @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
   
 
-    </div>
-    
+   <div class="content">
+       
+   </div>
+  <div class="container">
+    <h1>Add Employee</h1>
+      
+    <form action="{{ route('AddEmployee') }}" method="get">
+      @csrf
 
-    <button type="submit" class="button button-block">Get Started</button>
-    
+      <div class="field-wrap">
+        <label>First Name<span class="req">*</span></label>
+        <input name="name" type="text" required autocomplete="off" />
+      </div>
+
+      <div class="field-wrap">
+        <label>Email Address<span class="req">*</span></label>
+        <input name="email" type="email" required autocomplete="off"/>
+      </div>
+
+      <div class="field-wrap">
+        <label>Set A Password<span class="req">*</span></label>
+        <input name="password" type="password" required autocomplete="off"/>
+      </div>
+
+      <div class="field-wrap">
+        <label>Choose a Role<span class="req">*</span></label>
+        <select name="role">
+          <option value="">Select</option>
+          <option value="1">Super Admin</option>
+          <option value="2">Admin</option>
+          <option value="3">Not Assigned</option>
+        </select>
+      </div>
+
+      <div class="field-wrap">
+        <label>Gender<span class="req">*</span></label>
+        <select name="gender">
+          <option value="Not Added">Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+
+      <div class="field-wrap">
+        <label>Phone Number<span class="req">*</span></label>
+        <input name="phone_number" type="text" required autocomplete="off"/>
+      </div>
+
+      <button type="submit" class="button">Add Employee</button>
     </form>
-
   </div>
+</body>
+</html>

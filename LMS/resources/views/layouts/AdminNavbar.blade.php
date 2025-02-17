@@ -357,21 +357,20 @@
                 transform: rotate(90deg);
             }
         }
-        .profile_image {
-  vertical-align: middle;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
 
-}
+        .profile_image {
+            vertical-align: middle;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+
+        }
 
         @media (max-width:370px) {
             nav .navbar .nav-links {
                 max-width: 100%;
             }
         }
-
-        
     </style>
 </head>
 
@@ -388,61 +387,58 @@
                 <ul class="links">
                     <li><a href="{{ route('/') }}">HOME</a></li>
                     <li>
-                        <a href="#">HTML & CSS</a>
+                        <a href="#">Books</a>
                         <i class='bx bxs-chevron-down htmlcss-arrow arrow  '></i>
                         <ul class="htmlCss-sub-menu sub-menu">
-                            <li><a href="#">Web Design</a></li>
-                            <li><a href="#">Login Forms</a></li>
-                            <li><a href="#">Card Design</a></li>
+                            <li><a href="#">View Books</a></li>
+                            <li><a href="#">Add Book</a></li>
+                            <li><a href="#">Borrows</a></li>
                             <li class="more">
                                 <span><a href="#">More</a>
                                     <i class='bx bxs-chevron-right arrow more-arrow'></i>
                                 </span>
                                 <ul class="more-sub-menu sub-menu">
-                                    <li><a href="#">Neumorphism</a></li>
-                                    <li><a href="#">Pre-loader</a></li>
-                                    <li><a href="#">Glassmorphism</a></li>
+                                    <li><a href="#">View Borrows</a></li>
+                                    <li><a href="#">Borrowed Users</a></li>
+                                    <li><a href="#">Return a book</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">JAVASCRIPT</a>
+                        <a href="#">Category and Languages</a>
                         <i class='bx bxs-chevron-down js-arrow arrow '></i>
                         <ul class="js-sub-menu sub-menu">
-                            <li><a href="#">Dynamic Clock</a></li>
-                            <li><a href="#">Form Validation</a></li>
-                            <li><a href="#">Card Slider</a></li>
-                            <li><a href="#">Complete Website</a></li>
+                            <li><a href="#">Display Categories</a></li>
+                            <li><a href="#">Display Languages</a></li>
                         </ul>
                     </li>
+
                     
-                    <li><a href="#">ABOUT US</a></li>
-                    <li><a href="#">CONTACT US</a></li>
                     <li>
                         <a href="#">
-                            <img class="profile_image" src="{{ Auth::check() ? (Auth::user()->profile_picture ? asset(Auth::user()->profile_picture) : 'https://z-lib.io/img/icon-user.svg') : 'https://z-lib.io/img/icon-user.svg' }}" alt="User">
+                            <img class="profile_image"
+                                src="https://laraveldaily.com/storage/117/laravel-gates-override-superadmin.png"
+                                alt="User">
                         </a>
-                        
+
                         <ul class="js-sub-menu sub-menu">
-                            @if(Auth::check())
-                        <!-- User is signed in -->
-                        <li><a href="{{ route('dashboard') }}">{{ Auth::user()->name }}</a></li>
-                        <li>
-                            <li>
-                                <a href="#" class="dropdown-item" id="logout-link">Log out</a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </li>
-                            
-                        </li>
-                    @else
-                        <!-- User is not signed in -->
-                        <li><a href="{{ route('userlogin') }}">Sign in</a></li>
-                    @endif
+                            @if (Auth::guard('admin')->check())
+                                <!-- Admin is signed in -->
+                                <li><a href="{{ route('SuperAdminDashboard') }}">{{ Auth::guard('admin')->user()->name }}</a></li>
+                                <li>
+                                    <a href="#" class="dropdown-item" id="logout-link">Log out</a>
+                                    <form id="logout-form" action="{{ route('SuperAdminlogout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @else
+                                <!-- Admin is not signed in -->
+                                <li><a href="{{ route('adminlogin') }}">Sign in</a></li>
+                            @endif
                         </ul>
-                    </li>
+                        
+                </li>
                 </ul>
             </div>
             <div class="search-box">
@@ -454,7 +450,6 @@
         </div>
     </nav>
     <script src="script.js">
-        
         // sidebar open close js code
         let navLinks = document.querySelector(".nav-links");
         let menuOpenBtn = document.querySelector(".navbar .bx-menu");
@@ -476,18 +471,17 @@
         }
         let jsArrow = document.querySelector(".js-arrow");
         jsArrow.onclick = function() {
-                navLinks.classList.toggle("show3");
-            } <
-           
+            navLinks.classList.toggle("show3");
+        } <
     </script>
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
     </form>
-    
+
     <script>
         document.getElementById('logout-link').addEventListener('click', function(event) {
-            event.preventDefault();  // Prevent default anchor behavior
-            document.getElementById('logout-form').submit();  // Submit the hidden form
+            event.preventDefault(); // Prevent default anchor behavior
+            document.getElementById('logout-form').submit(); // Submit the hidden form
         });
     </script>
 </body>

@@ -2,9 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
@@ -83,14 +82,17 @@
       
         
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="{{ route('dashboard') }}">Profile</a>
-        <a href="{{ route('DisplayBorrows') }}">My Borrows</a>
-        <a href="">Account Settings</a>
-        <a href="{{ route('logout') }}">Log Out</a>
+        <a href="{{ route('SuperAdminDashboard') }}">Profile</a>
+        <a href="{{ route('DisplayEmployees') }}">Employees</a>
+        <a href="{{ route('DisplayRoles') }}">Roles</a>
+        <a href="{{ route('DisplayUsers') }}">Users</a>
+        <a href="">Activity</a>
+        <a href="">Search</a>
+        <a href="">Log Out</a>
     </div>
 
     <!-- Use any element to open the sidenav -->
-    <span onclick="openNav()"><i class="fa fa-navicon" style="font-size:24px"></i></span>
+    <span onclick="openNav()"><i class="fa fa-arrow-circle-right" style="font-size:36px;color:#3E8DA8"></i></span>
 
     <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
     

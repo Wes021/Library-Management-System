@@ -56,10 +56,7 @@
     </div>
 
     <div class="container">
-        <br>
-        <br>
-        <br>
-        <br>
+        
         <input type="text" id="search" class="search-bar" placeholder="Search books..." onkeyup="filterBooks()">
         <div class="book-list">
             @foreach ($books as $book)

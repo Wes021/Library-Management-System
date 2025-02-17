@@ -103,48 +103,20 @@
         </div>
 
         <div class="profile-info">
-            <h5>Email:{{ $user['name'] }}</h5>
-            <p id="profileEmail"></p>
+            <h5>Name:</h5>
+            <p id="profileEmail">{{ $user['name'] }}</p>
 
-            <h5>Phone Number:{{ $user['phone_number'] }}</h5>
-            <p id="profilePhone"></p>
+            <h5>Email:</h5>
+            <p id="profileEmail">{{ $user['email'] }}</p>
+
+            <h5>Phone Number:</h5>
+            <p id="profilePhone">{{ $user['phone_number'] }}</p>
 
             <h5>Gender:{{ $user['gender'] }}</h5>
             <p id="profileGender"></p>
         </div>
-
-        <div class="profile-bio">
-            <h5>Bio:</h5>
-            <p id="profileBio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac urna eu purus
-                sollicitudin tincidunt. Sed auctor felis ac tortor bibendum.</p>
-        </div>
         <a href="{{ route('UserEditForm', ['user_id' => $user['user_id']]) }}">Edit</a><br>
         <a href="{{ route('DeleteUserAccount',['user_id' => $user['user_id']]) }}">Delete Account</a>
-        
-    </div>
-    <div class="container profile-container">
-        <div class="profile-header">
-            <img src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-image" id="profileImage">
-            <div class="profile-name" id="profileName">John Doe</div>
-        </div>
-
-        <div class="profile-info">
-            <h5>Email:</h5>
-            <p id="profileEmail"></p>
-
-            <h5>Phone Number:</h5>
-            <p id="profilePhone"></p>
-
-            <h5>Gender:</h5>
-            <p id="profileGender"></p>
-        </div>
-
-        <div class="profile-bio">
-            <h5>Bio:</h5>
-            <p id="profileBio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac urna eu purus
-                sollicitudin tincidunt. Sed auctor felis ac tortor bibendum.</p>
-        </div>
-        <a href="#" class="btn-edit" id="editProfileBtn">Edit Profile</a>
         
     </div>
 </body>

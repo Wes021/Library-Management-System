@@ -8,6 +8,7 @@ use App\Models\Borrow;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserServices extends Controller
@@ -111,6 +112,33 @@ class UserServices extends Controller
     }
 
     public function DisplayBorrows(){
+        $user_id=Auth::user()->user_id;
+
+        $borrows=DB::table('borrowing')
+        ->where('user_id', $user_id)
+        ->leftJoin('book', 'borrowing.book_id','=','book.book_id')
+        ->leftJoin('borrow_status','borrowing.borrow_status_id','=','borrow_status.borrow_status_id')
+        ->select(
+            'borrowing.*',
+            'book.book_title', 'book.ISBN', 'book.book_id',
+            'borrow_status.borrow_status'
+        )
+        ->get();
+
+        if(!$borrows){
+
+        }
         
+        return view('user.BorrowDetails', compact('borrows'));
+
+    }
+
+
+    public function DeleteBorrow($borrow_id){
+        $borrow=Borrow::findOrfail($borrow_id);
+
+        if($borrow->delete()){
+            return redirect()->back()->with('success','Borrow is deleted');
+        }
     }
 }

@@ -113,7 +113,7 @@
         
     </div>
 
-    <script>
+    {{-- <script>
         let reservedPeriods = [
             @foreach($reservations as $reservation)
                 { from: "{{ $reservation->borrowed_at }}", to: "{{ $reservation->return_at }}" },
@@ -136,7 +136,7 @@
                 this.value = "";
             }
         });
-    </script>
+    </script> --}}
 </body>
 
 </html>
