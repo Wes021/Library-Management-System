@@ -90,35 +90,36 @@
     <br>
     <br>
     <br>
+
     @include('layouts.AdminNavbar') <!-- Always Include Navbar -->
 
-    <div class="content">
-        
-    </div>
     <div class="container profile-container">
-       
+
 
         <div class="profile-info">
             <h5>ID:</h5>
-            <p id="profileEmail">{{$superadmin['admin_id']}}</p>
+            <p id="profileEmail">{{ $admin->admin_id }}</p>
 
             <h5>Name:</h5>
-            <p id="profilePhone">{{$superadmin['name']}}</p>
+            <p id="profilePhone">{{ $admin->name }}</p>
 
             <h5>Email</h5>
-            <p id="profileGender">{{$superadmin['email']}}</p>
+            <p id="profileGender">{{ $admin->email }}</p>
 
             <h5>Gender:</h5>
-            <p id="profileGender">{{$superadmin['gender']}}</p>
+            <p id="profileGender">{{ $admin->gender }}</p>
 
             <h5>Phone Number</h5>
-            <p id="profileEmail">{{$superadmin['phone_number']}}</p>
+            <p id="profileEmail">{{ $admin->phone_number }}</p>
+
+            <h5>Your Role:</h5>
+            <p id="profileEmail">{{ $admin->role_name }}</p>
 
         </div>
 
-        <a href="{{ route('SuperAdminEditForm', ['admin_id' => $superadmin['admin_id']]) }}">Edit</a><br>
-        
-        
+
+
+
     </div>
 </body>
 

@@ -1,128 +1,215 @@
-<div class="tab-content">
-    <div id="signup">   
-      <h1>Sign Up for Free</h1>
-      
-      <form action="{{ route('AddBook') }}" method="get">
-        @csrf
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
 
-      <div class="top-row">
-        <div class="field-wrap">
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 160px
+        }
 
-          <label>
-            Book Title<span class="req">*</span>
-          </label>
-          <input name="book_title" type="text" required autocomplete="off" />
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-        </div>
-      </div>
-  
-      <div class="field-wrap">
+        .field-wrap {
+            margin-bottom: 15px;
+        }
 
-        <label>
-            ISBN<span class="req">*</span>
-          </label>
-          <input name="isbn" type="text" required autocomplete="off" />
+        label {
+            font-weight: bold;
+            color: #555;
+        }
 
-      </div>
-  
-      <div class="field-wrap">
+        input[type="text"], input[type="url"], select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
 
-        <label>
-            Publisher<span class="req">*</span>
-          </label>
-          <input name="publisher" type="text" required autocomplete="off" />
+        input[type="text"]:focus, input[type="url"]:focus, select:focus {
+            border-color: #6c63ff;
+            outline: none;
+        }
 
-      </div>
-      
-      <div class="field-wrap">
+        .button {
+            width: 100%;
+            padding: 15px;
+            background-color: #3E8DA8;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
 
-        <label>
-            Language<span class="req">*</span>
-          </label>
-          
-          <select name="language" id="role">
-            <option value="">Select</option>
-            <option value="1">Arabic</option>
-            <option value="2">English</option>
-            <option value="3">German</option>
-  
-          </select>
+        .button:hover {
+            background-color: #3E8DA8;
+        }
 
-      </div>
+        .button-block {
+            width: 100%;
+        }
 
-      <div class="field-wrap">
+        .req {
+            color: red;
+        }
 
-        <label>
-            Year published<span class="req">*</span>
-          </label>
-          <input name="year" type="text" required autocomplete="off" />
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
 
-      </div>
-  
-  
-      <div class="field-wrap">
+        .top-row .field-wrap {
+            flex: 1;
+        }
 
-        <label>
-          Category<span class="req">*</span>
-        </label>
-        
-        <select name="category" id="role">
-          <option value="">Select</option>  
-          <option value="1">Sience</option>
-          <option value="2">Art</option>
-          <option value="3">Chimistry</option>
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+            color: #3E8DA8;
+            text-decoration: none;
+            font-size: 16px;
+        }
 
-        </select>
-  
-      </div>
+        a:hover {
+            text-decoration: underline;
+        }
 
-      
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+  @include('layouts.AdminNavbar')
+<div class="container">
+    <div id="signup">
+        <h1>Add a Book</h1>
 
-      <div class="field-wrap">
+        <form action="{{ route('AddBook') }}" method="get">
+            @csrf
 
-        <label>
-            image<span class="req">*</span>
-          </label>
-          <input name="image" type="url" required autocomplete="off" />
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label>
+                        Book Title <span class="req">*</span>
+                    </label>
+                    <input name="book_title" type="text" required autocomplete="off" />
+                </div>
+                <div class="field-wrap">
+                    <label>
+                        ISBN <span class="req">*</span>
+                    </label>
+                    <input name="isbn" type="text" required autocomplete="off" />
+                </div>
+            </div>
 
-      </div>
+            <div class="field-wrap">
+                <label>
+                    Publisher <span class="req">*</span>
+                </label>
+                <input name="publisher" type="text" required autocomplete="off" />
+            </div>
 
-      <div class="field-wrap">
+            <div class="field-wrap">
+                <label>
+                    Language <span class="req">*</span>
+                </label>
+                <select name="language" id="role" required>
+                    <option value="">Select</option>
+                    <option value="1">Arabic</option>
+                    <option value="2">English</option>
+                    <option value="3">German</option>
+                </select>
+            </div>
 
-        <label>
-            Status<span class="req">*</span>
-          </label>
-          
-          <select name="status" id="role">
-            <option value="">Select</option>
-            <option value="1">Available</option>
-            <option value="2">Not Available</option>
-            <option value="3">Damaged</option>
-  
-          </select>
+            <div class="field-wrap">
+                <label>
+                    Year Published <span class="req">*</span>
+                </label>
+                <input name="year" type="text" required autocomplete="off" />
+            </div>
 
-      </div>
-    
+            <div class="field-wrap">
+                <label>
+                    Category <span class="req">*</span>
+                </label>
+                <select name="category" id="role" required>
+                    <option value="">Select</option>
+                    <option value="1">Science</option>
+                    <option value="2">Art</option>
+                    <option value="3">Chemistry</option>
+                </select>
+            </div>
 
-      <div class="field-wrap">
+            <div class="field-wrap">
+                <label>
+                    Image URL <span class="req">*</span>
+                </label>
+                <input name="image" type="url" required autocomplete="off" />
+            </div>
 
-        <label>
-            Fine Rate<span class="req">*</span>
-          </label>
-          <input name="fine_rate" type="text" required autocomplete="off" />
+            <div class="field-wrap">
+                <label>
+                    Status <span class="req">*</span>
+                </label>
+                <select name="status" id="role" required>
+                    <option value="">Select</option>
+                    <option value="1">Available</option>
+                    <option value="2">Not Available</option>
+                    <option value="3">Damaged</option>
+                </select>
+            </div>
 
-      </div>
+            <div class="field-wrap">
+                <label>
+                    Fine Rate <span class="req">*</span>
+                </label>
+                <input name="fine_rate" type="text" required autocomplete="off" />
+            </div>
 
-      <label>
-        Total copies<span class="req">*</span>
-      </label>
-      <input name="total_copies" type="text" required autocomplete="off" />
+            <div class="field-wrap">
+                <label>
+                    Total Copies <span class="req">*</span>
+                </label>
+                <input name="total_copies" type="text" required autocomplete="off" />
+            </div>
 
-  </div>
-      
-  
-      <button type="submit" class="button button-block">Get Started</button>
-      
-      </form>
-  
+            <button type="submit" class="button button-block">Add Book</button>
+        </form>
+
+        <a href="{{ route('DisplayBooks') }}">Return to Books List</a>
     </div>
+</div>
+
+</body>
+</html>

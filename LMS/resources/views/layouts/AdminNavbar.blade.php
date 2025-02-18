@@ -390,7 +390,7 @@
                         <a href="#">Books</a>
                         <i class='bx bxs-chevron-down htmlcss-arrow arrow  '></i>
                         <ul class="htmlCss-sub-menu sub-menu">
-                            <li><a href="#">View Books</a></li>
+                            <li><a href="{{ route('DisplayBooks') }}">View Books</a></li>
                             <li><a href="#">Add Book</a></li>
                             <li><a href="#">Borrows</a></li>
                             <li class="more">
@@ -409,8 +409,8 @@
                         <a href="#">Category and Languages</a>
                         <i class='bx bxs-chevron-down js-arrow arrow '></i>
                         <ul class="js-sub-menu sub-menu">
-                            <li><a href="#">Display Categories</a></li>
-                            <li><a href="#">Display Languages</a></li>
+                            <li><a href="{{ route('DisplayCategories') }}">Display Categories</a></li>
+                            <li><a href="{{ route('DisplayLanguages') }}">Display Languages</a></li>
                         </ul>
                     </li>
 
@@ -423,18 +423,18 @@
                         </a>
 
                         <ul class="js-sub-menu sub-menu">
-                            @if (Auth::guard('admin')->check())
+                            @if (Auth::guard('employee')->check())
                                 <!-- Admin is signed in -->
-                                <li><a href="{{ route('SuperAdminDashboard') }}">{{ Auth::guard('admin')->user()->name }}</a></li>
+                                <li><a href="{{ route('AdminDashboard') }}">{{ Auth::guard('employee')->user()->name }}</a></li>
                                 <li>
                                     <a href="#" class="dropdown-item" id="logout-link">Log out</a>
-                                    <form id="logout-form" action="{{ route('SuperAdminlogout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('AdminLogout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </li>
                             @else
                                 <!-- Admin is not signed in -->
-                                <li><a href="{{ route('adminlogin') }}">Sign in</a></li>
+                                <li><a href="{{ route('empsignin') }}">Sign in</a></li>
                             @endif
                         </ul>
                         

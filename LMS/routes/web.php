@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\AdminController\AdminAuthinticate;
 use App\Http\Controllers\AdminController\BookManagament;
 use App\Http\Controllers\AdminController\CategoryManagment;
 use App\Http\Controllers\AdminController\LanguagesManagment;
 use App\Http\Controllers\AdminControllers\AdminAuthinticate as AdminControllersAdminAuthinticate;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SuperAdminControllers\EmployeeManagament;
-use App\Http\Controllers\SuperAdminControllers\AdminAuthinticate;
+use App\Http\Controllers\SuperAdminControllers\SuperAdminAuthinticate;
 use App\Http\Controllers\SuperAdminControllers\RoleManagment;
 use App\Http\Controllers\SuperAdminControllers\UserManagament;
 use App\Http\Controllers\UserController\userAccount;
@@ -50,10 +51,11 @@ Route::get('/login', function () {
 })->name('login');
 
 
-Route::post('/AdminSignin', [AdminAuthinticate::class, 'SuperAdminSignin'])->name('AdminSignin');
-Route::get('/SuperAdminDashboard',[AdminAuthinticate::class, 'SuperAdminInfo'])->name('SuperAdminDashboard');
-Route::get('/superadmin/{admin_id}/edit',[AdminAuthinticate::class, 'SuperAdminEditForm'])->name('SuperAdminEditForm');
-Route::post('/SuperAdminlogout', [AdminAuthinticate::class, 'SuperAdminlogout'])->name('SuperAdminlogout');
+Route::post('/AdminSignin', [SuperAdminAuthinticate::class, 'SuperAdminSignin'])->name('AdminSignin');
+Route::get('/SuperAdminDashboard',[SuperAdminAuthinticate::class, 'SuperAdminInfo'])->name('SuperAdminDashboard');
+Route::get('/superadmin/{admin_id}/edit',[SuperAdminAuthinticate::class, 'SuperAdminEditForm'])->name('SuperAdminEditForm');
+Route::post('/SuperAdminlogout', [SuperAdminAuthinticate::class, 'SuperAdminlogout'])->name('SuperAdminlogout');
+Route::post('/AdminSignin', [SuperAdminAuthinticate::class, 'SuperAdminSignin'])->name('AdminSignin');
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,10 +109,16 @@ Route::get('/DeleteBook/{book_id}/delete', [BookManagament::class, 'DeleteBook']
 //////////////////////////////////BookManagment/////////////////////////////////////////////////////////////////////////BookManagment///////////
 
 //////////////////////////////////Profile/////////////////////////////////////////////////////////////////////////Profile///////////
-Route::get('/AdminDashboard', function () {
-    return view('Admin(employee).AdminDashboard');
-})->name('AdminDashboard');
-Route::post('/AdminSignin', [AdminAuthinticate::class, 'SuperAdminSignin'])->name('AdminSignin');
+// Route::get('/AdminDashboard', function () {
+//     return view('Admin(employee).AdminDashboard');
+// })->name('AdminDashboard');
+
+Route::post('/empsignin',[AdminAuthinticate::class,'AdmineSignin'])->name('empsignin');
+
+Route::get('/AdminDashboard',[AdminAuthinticate::class, 'AdminInfo'])->name('AdminDashboard');
+
+Route::post('Adminlogout',[AdminAuthinticate::class,'AdminLogout'])->name('AdminLogout');
+
 
 
 
