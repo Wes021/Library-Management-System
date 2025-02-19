@@ -40,13 +40,12 @@ class UserServices extends Controller
         $validated = $request->validate([
             'book_id' => '',
             'user_id' => '',
-            'borrowed_at' => 'required',
-            'return_at' => 'required',
+            'days' => 'required|integer|min:1|max:30',
         ]);
-        ////////////////////////////////////converting the date to a proper data type in the DB////////////////////////////////////
-        $borrowedAt = Carbon::parse($validated['borrowed_at'])->format('Y-m-d H:i:s');
-        $returnAt = Carbon::parse($validated['return_at'])->format('Y-m-d H:i:s');
-        ////////////////////////////////////converting the date to a proper data type in the DB////////////////////////////////////
+
+
+        $borrowDate = now(); // Get current date
+        $dueDate = Carbon::now()->addDays((int) $request->days);
 
         //////////////////////////////////// To generate a proper ID for the borrow////////////////////////////////////
         $book_id = strval($validated['book_id']);
@@ -66,17 +65,17 @@ class UserServices extends Controller
         //////////////////////////////////// To generate a proper ID for the borrow////////////////////////////////////
 
         ////////////////////////////////////Check the available duration////////////////////////////////////
-        $overlap = DB::table('borrowing')
-        ->where('book_id', $validated['book_id'])
-        ->where(function ($query) use ($borrowedAt, $returnAt) {
-            $query->whereBetween('borrowed_at', [$borrowedAt, $returnAt])
-                  ->orWhereBetween('return_at', [$borrowedAt, $returnAt]);
-        })
-        ->exists();
+        // $overlap = DB::table('borrowing')
+        // ->where('book_id', $validated['book_id'])
+        // ->where(function ($query) use ($borrowedAt, $returnAt) {
+        //     $query->whereBetween('borrowed_at', [$borrowedAt, $returnAt])
+        //           ->orWhereBetween('return_at', [$borrowedAt, $returnAt]);
+        // })
+        // ->exists();
 
-        if ($overlap) {
-            return response()->json(['error' => 'This book is already reserved for the selected period.'], 400);
-        }
+        // if ($overlap) {
+        //     return response()->json(['error' => 'This book is already reserved for the selected period.'], 400);
+        // }
 
         ////////////////////////////////////Check the available duration////////////////////////////////////
 
@@ -89,56 +88,109 @@ class UserServices extends Controller
         ////////////////////////////////////Check if the user is already borrowing////////////////////////////////////
 
 
+
         // Store in database
-        if (!$overlap && !$checkUser) {
+        if (!$checkUser) {
             Borrow::create([
                 'borrow_id' => $borrowID,
                 'book_id' => $validated['book_id'],
                 'user_id' => $validated['user_id'],
-                'borrowed_at' => $borrowedAt,
-                'return_at' => $returnAt
+                'borrowed_at' => $borrowDate,
+                'due_date' => $dueDate
             ]);
 
-            return response()->json([
-                'message' => 'Book borrowed successfully',
-                'borrow_id' => $borrowID
-            ]);
-        } else{
+            DB::table('book')
+                ->where('book_id', $validated['book_id'])
+                ->update(['status' => 2]);
+        } else {
             return response()->json([
                 'message' => 'Book borrowing Faild',
-                
+
             ]);
         }
     }
 
-    public function DisplayBorrows(){
-        $user_id=Auth::user()->user_id;
+    public function DisplayBorrows()
+    {
+        $user_id = Auth::user()->user_id;
 
-        $borrows=DB::table('borrowing')
-        ->where('user_id', $user_id)
-        ->leftJoin('book', 'borrowing.book_id','=','book.book_id')
-        ->leftJoin('borrow_status','borrowing.borrow_status_id','=','borrow_status.borrow_status_id')
-        ->select(
-            'borrowing.*',
-            'book.book_title', 'book.ISBN', 'book.book_id',
-            'borrow_status.borrow_status'
-        )
-        ->get();
+        $borrows = DB::table('borrowing')
+            ->where('user_id', $user_id)
+            ->leftJoin('book', 'borrowing.book_id', '=', 'book.book_id')
+            ->leftJoin('borrow_status', 'borrowing.borrow_status_id', '=', 'borrow_status.borrow_status_id')
+            ->select(
+                'borrowing.*',
+                'book.book_title',
+                'book.ISBN',
+                'book.book_id',
+                'borrow_status.borrow_status'
+            )
+            ->get();
 
-        if(!$borrows){
-
+        if (!$borrows) {
         }
-        
-        return view('user.BorrowDetails', compact('borrows'));
 
+        return view('user.BorrowDetails', compact('borrows'));
     }
 
 
-    public function DeleteBorrow($borrow_id){
-        $borrow=Borrow::findOrfail($borrow_id);
+    public function DeleteBorrow($borrow_id)
+    {
+        $borrow = Borrow::findOrfail($borrow_id);
 
-        if($borrow->delete()){
-            return redirect()->back()->with('success','Borrow is deleted');
+        if ($borrow->delete()) {
+            return redirect()->back()->with('success', 'Borrow is deleted');
         }
+    }
+
+
+    public function returnBorrow($borrow_id)
+    {
+        $borrow = DB::table('borrowing')->where('borrow_id', $borrow_id)->first();
+        $returnDate = now();
+
+        // Calculate overdue days correctly
+        $overdueDays = $returnDate->greaterThan($borrow->due_date) ? $returnDate->diffInDays($borrow->due_date) : 0;
+
+        // Define fine per day
+        $finePerDay = 1; // You can change this amount
+
+        // Calculate total fine
+        $fine = $overdueDays * $finePerDay;
+
+        // Update record in database
+        DB::table('borrowing')
+            ->where('borrow_id', $borrow_id)
+            ->update([
+                'return_at' => $returnDate,
+                'fine' => $fine,
+                'borrow_status_id' => 6,
+                'updated_at' => now()
+            ]);
+
+        
+        DB::table('book')
+        ->where('book_id',$borrow->book_id)
+        ->update(['status' => 1]);
+
+        return redirect()->back()->with('success', 'Book returned! Fine: $' . $fine);
+    }
+
+
+    public function updateBorrowStatuses()
+    {
+        // Get current date
+        $today = Carbon::now();
+
+
+        DB::table('borrowing')
+            ->where('due_date', '<', $today)
+            ->where('borrow_status_id', 7)
+            ->update([
+                'borrow_status_id' => 8,
+                'updated_at' => now()
+            ]);
+
+        return response()->json(['message' => 'Borrow statuses updated successfully']);
     }
 }

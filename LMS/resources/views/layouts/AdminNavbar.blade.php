@@ -391,16 +391,14 @@
                         <i class='bx bxs-chevron-down htmlcss-arrow arrow  '></i>
                         <ul class="htmlCss-sub-menu sub-menu">
                             <li><a href="{{ route('DisplayBooks') }}">View Books</a></li>
-                            <li><a href="#">Add Book</a></li>
-                            <li><a href="#">Borrows</a></li>
+                            <li><a href="{{ route('Addbook') }}">Add Book</a></li>
                             <li class="more">
-                                <span><a href="#">More</a>
+                                <span><a href="#">Borrows</a>
                                     <i class='bx bxs-chevron-right arrow more-arrow'></i>
                                 </span>
                                 <ul class="more-sub-menu sub-menu">
-                                    <li><a href="#">View Borrows</a></li>
+                                    <li><a href="{{ route('DisplayBorrows') }}">View Borrows</a></li>
                                     <li><a href="#">Borrowed Users</a></li>
-                                    <li><a href="#">Return a book</a></li>
                                 </ul>
                             </li>
                         </ul>

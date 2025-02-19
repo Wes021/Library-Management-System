@@ -137,9 +137,9 @@
                 <p><span>Language:</span> {{ $book->language_name }}</p>
                 <p><span>Category:</span> {{ $book->book_category }}</p>
                 <p class="book-status
-                    @if($book->book_status == 'available')
+                    @if($book->status == 1)
                         available
-                    @elseif($book->book_status == 'not Available' || $book->book_status == 'damaged')
+                    @elseif($book->status == 2 || $book->book_status == 3)
                         damaged
                     @else
                         not-available

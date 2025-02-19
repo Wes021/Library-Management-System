@@ -15,7 +15,9 @@ class Borrow extends Model
         'book_id',
         'user_id',
         'return_at',
-        'borrowed_at'
+        'borrowed_at',
+        'due_date',
+        'fine'
     ];
 
 }

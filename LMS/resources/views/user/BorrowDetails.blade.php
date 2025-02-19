@@ -90,57 +90,72 @@
     <br>
     <br>
     <br>
-    
-    @include('layouts.UserNavbar2') <!-- Always Include Navbar -->
-   @include('layouts.UserSideNavbar')
-   @if(session('success'))
-   <div class="alert alert-success">
-       {{ session('success') }}
-   </div>
-@endif
 
-@if(session('error'))
-   <div class="alert alert-danger">
-       {{ session('error') }}
-   </div>
-@endif
+    @include('layouts.UserNavbar2') <!-- Always Include Navbar -->
+    @include('layouts.UserSideNavbar')
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="content">
-        
+
     </div>
+    @foreach ($borrows as $borrow)
     <div class="container profile-container">
         <div class="profile-header">
-            
+
             <div class="profile-name" id="profileName">Borrow Details</div>
         </div>
-        @foreach ($borrows as $borrow)
-        <div class="profile-info">
-            <h5>Borrow ID:</h5>
-            <p id="profileEmail">{{$borrow->borrow_id}}</p>
-
-            <h5>Book id:</h5>
-            <p id="profilePhone">{{$borrow->book_id}}</p>
-
-            <h5>ISBN</h5>
-            <p id="profileGender">{{$borrow->ISBN}}</p>
-
-            <h5>Book Name</h5>
-            <p id="profileGender">{{$borrow->book_title}}</p>
-
-            <h5>From:</h5>
-            <p id="profileGender">{{$borrow->borrowed_at}}</p>
-
-            <h5>To:</h5>
-            <p id="profileGender">{{$borrow->return_at}}</p>
-
-            <h5>Status</h5>
-            <p id="profileGender">{{$borrow->borrow_status}}</p>
-
-            <h5>Created:</h5>
-            <p id="profileGender">{{$borrow->created_at}}</p>
-        </div>
-
-        <a href="{{ route('DeleteBorrow',['borrow_id' => $borrow->borrow_id]) }}">Delete Borrow</a>
         
+            <div class="profile-info">
+                <h5>Borrow ID:</h5>
+                <p id="profileEmail">{{ $borrow->borrow_id }}</p>
+
+                <h5>Book id:</h5>
+                <p id="profilePhone">{{ $borrow->book_id }}</p>
+
+                <h5>ISBN</h5>
+                <p id="profileGender">{{ $borrow->ISBN }}</p>
+
+                <h5>Book Name</h5>
+                <p id="profileGender">{{ $borrow->book_title }}</p>
+
+                <h5>to be return by:</h5>
+                <p id="profileGender">{{ $borrow->due_date }}</p>
+
+                <h5>Status</h5>
+                @if ($borrow->borrow_status_id == 8)
+                <p style="color: red" id="profileGender">{{$borrow->borrow_status}}</p>
+                
+                @else
+                <p style="color:green" id="profileGender">{{$borrow->borrow_status}}</p>
+                @endif
+
+
+                <h5>Created:</h5>
+                <p id="profileGender">{{ $borrow->created_at }}</p>
+
+                <h5>Fines:</h5>
+                <p id="profileGender">{{ $borrow->fine }}<span>$</span></p>
+            </div>
+
+
+            @if ($borrow->borrow_status_id == 6)
+
+            @else
+                <a href="{{ route('DeleteBorrow', ['borrow_id' => $borrow->borrow_id]) }}">Delete Borrow</a> <br>
+                <a href="{{ route('returnBorrow', ['borrow_id' => $borrow->borrow_id]) }}">Return the book</a>
+            @endif
+
+
+
     </div>
     @endforeach
 </body>

@@ -388,19 +388,19 @@
                 <ul class="links">
                     <li><a href="{{ route('/') }}">HOME</a></li>
                     <li>
-                        <a href="#">HTML & CSS</a>
+                        <a href="#">Books and more</a>
                         <i class='bx bxs-chevron-down htmlcss-arrow arrow  '></i>
                         <ul class="htmlCss-sub-menu sub-menu">
-                            <li><a href="#">Web Design</a></li>
-                            <li><a href="#">Login Forms</a></li>
-                            <li><a href="#">Card Design</a></li>
+                            <li><a href="#">Browse Categories</a></li>
+                            <li><a href="#">Browse Authors</a></li>
+                            <li><a href="#">Browse Articles</a></li>
                             <li class="more">
                                 <span><a href="#">More</a>
                                     <i class='bx bxs-chevron-right arrow more-arrow'></i>
                                 </span>
                                 <ul class="more-sub-menu sub-menu">
-                                    <li><a href="#">Neumorphism</a></li>
-                                    <li><a href="#">Pre-loader</a></li>
+                                    <li><a href="#">Favorite Books</a></li>
+                                    <li><a href="#">Favorite Articles</a></li>
                                     <li><a href="#">Glassmorphism</a></li>
                                 </ul>
                             </li>

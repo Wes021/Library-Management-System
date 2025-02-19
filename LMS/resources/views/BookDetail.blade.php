@@ -41,6 +41,7 @@
 </head>
 
 <body>
+    @include('layouts.UserNavbar2')
     <div class="container">
         <h1>{{ $book->book_title }}</h1>
         <img src="{{ $book->image_url }}" alt="N/A">

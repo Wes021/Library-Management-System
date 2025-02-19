@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController\AdminAuthinticate;
 use App\Http\Controllers\AdminController\BookManagament;
+use App\Http\Controllers\AdminController\BorrowsManagment;
 use App\Http\Controllers\AdminController\CategoryManagment;
 use App\Http\Controllers\AdminController\LanguagesManagment;
 use App\Http\Controllers\AdminControllers\AdminAuthinticate as AdminControllersAdminAuthinticate;
@@ -41,6 +42,9 @@ Route::Get('user/{user_id}/deleteaccount', [userAccount::class, 'DeleteUserAccou
 Route::get('/dashboard', [userAccount::class, 'UserDashboard'])->name('dashboard');
 Route::get('/dashboard/myborrows',[UserServices::class,'DisplayBorrows'])->name('DisplayBorrows');
 Route::get('/dashboard/{borrow_id}/myborrows',[UserServices::class,'DeleteBorrow'])->name('DeleteBorrow');
+
+Route::get('/dashboard/{borrow_id}/returnBorrow',[UserServices::class,'returnBorrow'])->name('returnBorrow');
+
 
 ///////////////END/////////////////USER/////////////////////////////////////////USER//////////////////////////////////END////////////////
 
@@ -120,13 +124,12 @@ Route::get('/AdminDashboard',[AdminAuthinticate::class, 'AdminInfo'])->name('Adm
 Route::post('Adminlogout',[AdminAuthinticate::class,'AdminLogout'])->name('AdminLogout');
 
 
-
-
-
-
 //////////////////////////////////Profile/////////////////////////////////////////////////////////////////////////Profile///////////
 
 
+//////////////////////////////////BorrowsManagment/////////////////////////////////////////////////////////////////////////BorrowsManagment///////////
+Route::get('/DisplayBorrows',[BorrowsManagment::class,'DisplayBorrows'])->name('DisplayBorrows');
+//////////////////////////////////BorrowsManagment/////////////////////////////////////////////////////////////////////////BorrowsManagment///////////
 
 
 //////////////////////////////////CategoryManagment/////////////////////////////////////////////////////////////////////////CategoryManagment///////////

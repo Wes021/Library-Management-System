@@ -60,6 +60,7 @@
 </head>
 
 <body>
+    @include('layouts.UserNavbar2')
     <div class="container">
         <h2>Borrow a Book</h2>
         <form action="{{ route('NewBorrow') }}" id="borrowForm" method="GET">
@@ -97,11 +98,8 @@
 
             <div class="section">
                 <h3>Borrowing Duration</h3>
-                <label for="borrowAt">Borrow Date & Time</label>
-                <input type="datetime-local" name="borrowed_at" id="borrowAt" required>
-
-                <label for="returnAt">Return Date & Time</label>
-                <input type="datetime-local" name="return_at" id="returnAt" required>
+                <label for="days">Select Borrowing Period (Days):</label>
+                <input type="number" id="days" name="days" min="1" max="30" required>
             </div>
 
             
@@ -113,30 +111,7 @@
         
     </div>
 
-    {{-- <script>
-        let reservedPeriods = [
-            @foreach($reservations as $reservation)
-                { from: "{{ $reservation->borrowed_at }}", to: "{{ $reservation->return_at }}" },
-            @endforeach
-        ];
     
-        function isUnavailable(date) {
-            for (let period of reservedPeriods) {
-                let start = new Date(period.from);
-                let end = new Date(period.to);
-                if (date >= start && date <= end) return true;
-            }
-            return false;
-        }
-    
-        document.getElementById("borrowAt").addEventListener("change", function () {
-            let selectedDate = new Date(this.value);
-            if (isUnavailable(selectedDate)) {
-                alert("This time is already reserved. Please choose another.");
-                this.value = "";
-            }
-        });
-    </script> --}}
 </body>
 
 </html>
