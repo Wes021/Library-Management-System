@@ -64,49 +64,53 @@ class UserServices extends Controller
         $borrowID = intval($book_id . $user_id . $borrowNumber);
         //////////////////////////////////// To generate a proper ID for the borrow////////////////////////////////////
 
-        ////////////////////////////////////Check the available duration////////////////////////////////////
-        // $overlap = DB::table('borrowing')
-        // ->where('book_id', $validated['book_id'])
-        // ->where(function ($query) use ($borrowedAt, $returnAt) {
-        //     $query->whereBetween('borrowed_at', [$borrowedAt, $returnAt])
-        //           ->orWhereBetween('return_at', [$borrowedAt, $returnAt]);
-        // })
-        // ->exists();
-
-        // if ($overlap) {
-        //     return response()->json(['error' => 'This book is already reserved for the selected period.'], 400);
-        // }
-
-        ////////////////////////////////////Check the available duration////////////////////////////////////
+        
 
         ////////////////////////////////////Check if the user is already borrowing////////////////////////////////////
 
-        $checkUser = DB::table('borrowing')
+        $checkUserBorrow = DB::table('borrowing')
             ->where('user_id', $validated['user_id'])
-            ->where('borrow_status_id', 5) // Ensures user has an active borrow
+            ->where('borrow_status_id', 7) // Ensures user has an active borrow
             ->exists();
         ////////////////////////////////////Check if the user is already borrowing////////////////////////////////////
 
+        $checkbook= DB::table('book')
+        ->where('book_id', $validated['book_id'])
+        ->where('status', 1)
+        ->exists();
+
+
+        $checkuser=DB::table('user')
+        ->where('user_id', $validated['user_id'])
+        ->where('status', 1)
+        ->exists();
 
 
         // Store in database
-        if (!$checkUser) {
-            Borrow::create([
-                'borrow_id' => $borrowID,
-                'book_id' => $validated['book_id'],
-                'user_id' => $validated['user_id'],
-                'borrowed_at' => $borrowDate,
-                'due_date' => $dueDate
-            ]);
+        if ($checkuser) {
+                if ($checkbook) {
+                            if (!$checkUserBorrow) {
+                                    Borrow::create([
+                                        'borrow_id' => $borrowID,
+                                        'book_id' => $validated['book_id'],
+                                        'user_id' => $validated['user_id'],
+                                        'borrowed_at' => $borrowDate,
+                                        'due_date' => $dueDate
+                                        ]);
+                                                
+                                        DB::table('book')
+                                        ->where('book_id', $validated['book_id'])
+                                        ->update(['status' => 2]);
 
-            DB::table('book')
-                ->where('book_id', $validated['book_id'])
-                ->update(['status' => 2]);
+                                        return redirect()->route('DisplayBorrow')->with('success', 'Book Borrowed successfully!');
+                                            } else {
+                                                return redirect()->back()->with('error', 'You Are Already borrowing, you cant borrow more than a book');
+                                                }
+                } else {
+                    return redirect()->back()->with('error', 'This Book is not available');
+                        }
         } else {
-            return response()->json([
-                'message' => 'Book borrowing Faild',
-
-            ]);
+            return redirect()->back()->with('error', 'Your Account is Suspended, Contact the Managment');
         }
     }
 
@@ -139,7 +143,11 @@ class UserServices extends Controller
         $borrow = Borrow::findOrfail($borrow_id);
 
         if ($borrow->delete()) {
-            return redirect()->back()->with('success', 'Borrow is deleted');
+            DB::table('book')
+            ->where('book_id', $borrow->book_id)
+            ->update(['status' => 1]);
+
+            return redirect()->back()->with('success', 'The Borrow deleted successfully!');
         }
     }
 
@@ -159,7 +167,7 @@ class UserServices extends Controller
         $fine = $overdueDays * $finePerDay;
 
         // Update record in database
-        DB::table('borrowing')
+        $borroww=DB::table('borrowing')
             ->where('borrow_id', $borrow_id)
             ->update([
                 'return_at' => $returnDate,
@@ -169,11 +177,17 @@ class UserServices extends Controller
             ]);
 
         
-        DB::table('book')
+        $book=DB::table('book')
         ->where('book_id',$borrow->book_id)
         ->update(['status' => 1]);
 
-        return redirect()->back()->with('success', 'Book returned! Fine: $' . $fine);
+        if($borroww && $book){
+            return redirect()->back()->with('success', 'Book returned! Fine: $' . $fine);
+        }else{
+            return redirect()->back()->with('error', 'Book return proccess faild!, Please try agian');
+        }
+
+        
     }
 
 
@@ -183,7 +197,7 @@ class UserServices extends Controller
         $today = Carbon::now();
 
 
-        DB::table('borrowing')
+       $status= DB::table('borrowing')
             ->where('due_date', '<', $today)
             ->where('borrow_status_id', 7)
             ->update([
@@ -191,6 +205,8 @@ class UserServices extends Controller
                 'updated_at' => now()
             ]);
 
-        return response()->json(['message' => 'Borrow statuses updated successfully']);
+        if($status){
+            return redirect()->back()->with('success', 'Be aware you just Exceeded you borrow duration');
+        }
     }
 }

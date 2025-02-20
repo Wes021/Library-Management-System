@@ -29,7 +29,7 @@ class BookManagament extends Controller
             $randomId = random_int(1000, 9999);
         } while (Book::where('book_id', $randomId)->exists());
 
-        Book::create([
+       $book= Book::create([
             'book_id' => $randomId,
             'book_title' => $validated['book_title'],
             'ISBN' => $validated['isbn'],
@@ -42,6 +42,14 @@ class BookManagament extends Controller
             'fine_rate' => $validated['fine_rate'],
             'total_copies' => $validated['total_copies'],
         ]);
+
+
+        if($book){
+            return redirect()->route('DisplayBooks')->with(['success' => 'New Book was Added!']);
+
+        }else{
+            return redirect()->back()->with(['error' => 'Adding Book failed!, please try again']);
+        }
     }
 
     public function DisplayBooks()
@@ -67,7 +75,7 @@ class BookManagament extends Controller
     {
         $book = Book::findOrFail($book_id);
 
-        $book->update([
+        $update=$book->update([
             'book_title' => $request->book_title,
             'ISBN' => $request->ISBN,
             'Publisher' => $request->Publisher,
@@ -80,16 +88,22 @@ class BookManagament extends Controller
             'total_copies' => $request->total_copies,
         ]);
 
-        return redirect()->route('DisplayBooks')->with('success', 'Book updated successfully!');
+        if($update){
+            return redirect()->route('DisplayBooks')->with('success', 'Book updated successfully!');
+        }else{
+            return redirect()->back()->with('error', 'Book update faild!');
+        }
+
+        
     }
 
     public function DeleteBook($book_id)
     {
         $book = Book::findOrFail($book_id);
         if ($book->delete()) {
-            return redirect()->route('DisplayBooks');
+            return redirect()->route('DisplayBooks')->with('success', 'Book deleted successfully!');
         } else {
-            echo "Deletion procsses has faild";
+            return redirect()->route('DisplayBooks')->with('error', 'Book deletion faild!');
         }
     }
 }

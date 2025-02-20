@@ -126,6 +126,7 @@
 <body>
     @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
     <div class="container">
+        @include('common.alert')
         <h2>Roles List</h2>
         <a href="{{ route('Addrole') }}" class="btn">Add Role</a>
         <table>
@@ -149,6 +150,7 @@
                 @endforeach
             </tbody>
         </table>
+        <a href="{{ route('DisplayRoles') }}">Back</a>
     </div>
 
 </body>

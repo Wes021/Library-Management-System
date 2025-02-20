@@ -94,6 +94,7 @@
 <body>
 
 <div class="container">
+    @include('common.alert')
     <h2>Add Language</h2>
 
     <form action="{{ route('AddLanguage') }}" method="get">

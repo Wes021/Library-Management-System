@@ -43,6 +43,7 @@
 <body>
     @include('layouts.UserNavbar2')
     <div class="container">
+        @include('common.alert')
         <h1>{{ $book->book_title }}</h1>
         <img src="{{ $book->image_url }}" alt="N/A">
         <p><strong>Author:</strong> {{ $book->Publisher }}</p>
@@ -59,6 +60,7 @@
         @endif
 
     </div>
+    <a href=" {{route('/')}} ">Back</a>
 </body>
 
 </html>

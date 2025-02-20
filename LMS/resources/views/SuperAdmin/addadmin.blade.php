@@ -85,6 +85,7 @@
        
    </div>
   <div class="container">
+    @include('common.alert')
     <h1>Add Employee</h1>
       
     <form action="{{ route('AddEmployee') }}" method="get">
@@ -131,6 +132,7 @@
 
       <button type="submit" class="button">Add Employee</button>
     </form>
+    <a href="{{ route('DisplayEmployees') }}">Back</a>
   </div>
 </body>
 </html>

@@ -121,6 +121,7 @@
 
 @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
     <div class="container">
+        @include('common.alert')
         <h2>Users List</h2>
 
         <table>

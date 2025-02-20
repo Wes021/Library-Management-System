@@ -170,7 +170,10 @@ form
     </style>
   </head>
   <body>
+    
+
     <section class="wrapper">
+      @include('common.alert')
       <div class="form signup">
         <header>Admin</header>
         <form action="{{ route('empsignin') }}" method="POST">

@@ -92,6 +92,7 @@
 <body>
     @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
     <div class="container">
+        @include('common.alert')
         <h2>Update Role</h2>
         <form action="{{route('UpdateRole', $role->role_id)}}" method="POST">
             @csrf

@@ -92,6 +92,7 @@
 <body>
   @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
     <div class="container">
+        @include('common.alert')
         <h2>Add Role</h2>
         <form action="{{ route('AddRole') }}" method="GET">
             @csrf

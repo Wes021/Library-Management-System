@@ -17,10 +17,16 @@ class RoleManagment extends Controller
 
 
 
-        Role::create([
+        $role=Role::create([
 
             'role_name' => $validated['role_name']
         ]);
+
+        if($role){
+            return redirect()->back()->with('success', 'Role '+$validated['role_name']+' Successfully!');
+        }else{
+            return redirect()->back()->with('error', 'Role '+$validated['role_name']+' Add Faild!');
+       }
     }
 
 
@@ -44,16 +50,26 @@ class RoleManagment extends Controller
     {
         $role = Role::findOrFail($role_id);
 
-        $role->update([
+        $role=$role->update([
             'role_name' => $request->role_name
         ]);
+
+
+        if($role){
+            return redirect()->route('DisplayRoles')->with('success', 'Role Updated Successfully!');
+       }else{
+            return redirect()->route('DisplayRoles')->with('error', 'Role Update Failed!');
+       }
     }
 
     public function RemoveRole($role_id)
     {
         $role = Role::findOrFail($role_id);
-        if ($role->delete()) {
-            return redirect()->back();
-        }
+
+        if($role){
+            return redirect()->back()->with('success', 'Role Deleted Successfully!');
+       }else{
+            return redirect()->back()->with('error', 'Role Deletion Failed!');
+       }
     }
 }

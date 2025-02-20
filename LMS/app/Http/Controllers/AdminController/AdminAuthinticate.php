@@ -13,7 +13,7 @@ class AdminAuthinticate extends Controller
 {
     public function AdmineSignin(Request $request)
     {
-        // Validate the input
+
         $validated = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -23,12 +23,12 @@ class AdminAuthinticate extends Controller
         $admin = Admin::where('email', $validated['email'])->first();
 
         if ($admin && Hash::check($validated['password'], $admin->password)) {
-            // Log the admin in using the admin guard
+
             Auth::guard('employee')->login($admin);
 
             return redirect()->route('AdminDashboard');
         } else {
-            return back()->withErrors(['email' => 'Invalid credentials']);
+            return back()->with(['error' => 'Your Email or password is incorrect']);//alert
         }
     }
 
@@ -37,22 +37,24 @@ class AdminAuthinticate extends Controller
 
     public function AdminInfo(Request $request)
     {
-    
-        $admin=DB::table('Admin')
-        ->where('admin_id',Auth::guard('employee')->user()->admin_id)
-        ->leftJoin('roles','Admin.role_id','=','roles.role_id')
-        ->select('admin.*','roles.role_name')
-        ->first();
-        
+
+        $admin = DB::table('Admin')
+            ->where('admin_id', Auth::guard('employee')->user()->admin_id)
+            ->leftJoin('roles', 'Admin.role_id', '=', 'roles.role_id')
+            ->select('admin.*', 'roles.role_name')
+            ->first();
+
         return view('Admin(employee).AdminDashboard', compact('admin'));
     }
 
-    public function AdminLogout(Request $request){
+
+    public function AdminLogout(Request $request)
+    {
         Auth::guard('employee')->logout();
         $request->session()->forget('AdminData');
         return redirect()->route('/');
     }
 
 
-    public function EditAdminInfo(Request $request){}
+    public function EditAdminInfo(Request $request) {}
 }

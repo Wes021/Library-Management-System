@@ -113,7 +113,9 @@
 
 <body>
     @include('layouts.AdminNavbar')
+    
     <div class="container">
+        @include('common.alert')
         <h2>Books List</h2>
 
         <a href="{{ route('Addbook') }}">Add a book</a>
@@ -176,7 +178,7 @@
                         <td>{{ $book->fine_rate }}</td>
                         <td>{{ $book->total_copies }}</td>
                         <td>
-                            <a href="{{ route('EditForme', ['book_id' => $book->book_id]) }}">Edit</a> |
+                            <a href="{{ route('EditForm', ['book_id' => $book->book_id]) }}">Edit</a> |
                             <a href="{{ route('DeleteBook', ['book_id' => $book->book_id]) }}">Delete</a>
                         </td>
                     </tr>

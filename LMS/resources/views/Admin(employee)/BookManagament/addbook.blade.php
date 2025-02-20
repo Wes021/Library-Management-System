@@ -112,6 +112,7 @@
 <body>
   @include('layouts.AdminNavbar')
 <div class="container">
+    @include('common.alert')
     <div id="signup">
         <h1>Add a Book</h1>
 

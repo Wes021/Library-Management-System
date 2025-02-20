@@ -21,37 +21,6 @@ class EmployeeManagament extends Controller
         return view('SuperAdmin.EmployeeMagagment.DisplpayEmployee', compact('employees'));
     }
 
-    public function EditForm($admin_id)
-    {
-        $admin = Admin::findOrFail($admin_id);
-        return view('SuperAdmin.EmployeeMagagment.EditEmployee', compact('admin'));
-    }
-
-    public function UpdateEmployee(Request $request, $admin_id)
-    {
-        $admin = Admin::findOrFail($admin_id);
-
-        $admin->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role_id' => $request->role_id,
-            'gender' => $request->gender,
-            'phone_number' => $request->phone_number,
-        ]);
-    }
-
-
-    public function DeleteEmployee($admin_id)
-    {
-        $employee = Admin::findOrFail($admin_id);
-
-        if ($employee->delete()) {
-            return redirect()->route('DisplayEmployees');
-        } else {
-            echo "Deletion procsses has faild";
-        }
-    }
-
 
 
     public function AddEmployee(Request $request)
@@ -73,7 +42,7 @@ class EmployeeManagament extends Controller
         } while (Admin::where('admin_id', $randomId)->exists());
 
 
-        Admin::create([
+       $employee= Admin::create([
             'admin_id' => $randomId,
             'name' => $validated['name'],
             'email' => $validated['email'],
@@ -83,6 +52,54 @@ class EmployeeManagament extends Controller
             'phone_number' => $validated['phone_number'],
         ]);
 
-        return redirect()->back();
+        if($employee){
+            return redirect()->back()->with('success', 'New Employee Added Successfully!');
+       }else{
+            return redirect()->back()->with('error', 'New Employee Adding Failed!');
+       }
+        
+    }
+
+
+
+
+    public function EditForm($admin_id)
+    {
+        $admin = Admin::findOrFail($admin_id);
+        return view('SuperAdmin.EmployeeMagagment.EditEmployee', compact('admin'));
+    }
+
+
+
+    public function UpdateEmployee(Request $request, $admin_id)
+    {
+        $admin = Admin::findOrFail($admin_id);
+
+    $employee= $admin->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role_id' => $request->role_id,
+            'gender' => $request->gender,
+            'phone_number' => $request->phone_number,
+        ]);
+
+
+        if($employee){
+            return redirect()->back()->with('success', 'Employee Updated Successfully!');
+       }else{
+            return redirect()->back()->with('error', 'Employee Update Failed!');
+       }
+    }
+
+
+    public function DeleteEmployee($admin_id)
+    {
+        $employee = Admin::findOrFail($admin_id);
+
+        if($employee->delete()){
+            return redirect()->back()->with('success', 'Employee Deleted Successfully!');
+       }else{
+            return redirect()->back()->with('error', 'Employee Deletion Failed!');
+       }
     }
 }

@@ -13,9 +13,11 @@
         <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white text-center">
+                    @include('common.alert')
                     <h4>Sign Up</h4>
                 </div>
                 <div class="card-body">
+                    
                     <form action="{{ route('signup') }}" method="get">
                         @csrf
 

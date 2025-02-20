@@ -89,6 +89,7 @@
 <body>
 
 <div class="container">
+    @include('common.alert')
     <h2>Update Category</h2>
 
     <form action="{{ route('UpdateCa', $book_category->book_category_id) }}" method="POST">

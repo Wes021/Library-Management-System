@@ -84,7 +84,7 @@
         
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="{{ route('dashboard') }}">Profile</a>
-        <a href="{{ route('DisplayBorrows') }}">My Borrows</a>
+        <a href="{{ route('DisplayBorrow') }}">My Borrows</a>
         <a href="">Account Settings</a>
         <a href="{{ route('logout') }}">Log Out</a>
     </div>

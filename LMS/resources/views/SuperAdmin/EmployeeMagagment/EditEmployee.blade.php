@@ -97,6 +97,7 @@
     
 
     <div class="container">
+        @include('common.alert')
         <h2>Edit Employee</h2>
 
         @if(session('success'))

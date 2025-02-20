@@ -124,6 +124,7 @@
 <body>
     @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
     <div class="container">
+        @include('common.alert')
         <h2>Employees List</h2>
 
         <a href="{{ route('Addadmin') }}" class="btn">Add Employee</a>
@@ -157,6 +158,7 @@
                 @endforeach
             </tbody>
         </table>
+        <a href="{{ route('DisplayEmployees') }}">Back</a>
     </div>
 
 </body>

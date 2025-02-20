@@ -120,6 +120,7 @@
 @include('layouts.UserNavbar2') <!-- Navbar is included -->
 
 <div class="container">
+    @include('common.alert')
     <h1>Library Collection</h1>
 
     <div class="search-bar-container">

@@ -19,10 +19,16 @@ class LanguagesManagment extends Controller
             $randomId = random_int(10, 99);
         } while (Language::where('language_id', $randomId)->exists());
 
-        Language::create([
+        $language=Language::create([
             'language_id' => $randomId,
             'language_name' => $validated['language_name'],
         ]);
+        if($language){
+            return redirect()->back()->with('success', 'Language'+$validated['language_name']+' Added successfully!');
+        }else{
+            return redirect()->back()->with('error', 'Language'+$validated['language_name']+' Adding faild!');
+        }
+
     }
 
 
@@ -34,12 +40,14 @@ class LanguagesManagment extends Controller
         return view('Admin(employee).LanguagesCategoriesManagment.Languagess.DisplayLanguages', compact('languages'));
     }
 
+
     public function EditForm($language_id)
     {
         $language = Language::findOrFail($language_id);
 
         return view('Admin(employee).LanguagesCategoriesManagment.Languagess.UpdateLangages', compact('language'));
     }
+
 
     public function UpdateLanguages(Request $request, $language_id)
     {
@@ -51,9 +59,17 @@ class LanguagesManagment extends Controller
 
 
 
-        $language->update([
+        $language=$language->update([
             'language_name' => $request->language_name,
         ]);
+
+        if($language){
+            return redirect()->route('DisplayLanguages')->with('success', 'Language updated successfully!');
+        }else{
+            return redirect()->route('DisplayLanguages')->with('error', 'Language update Faild!');
+        }
+
+
     }
 
 
@@ -62,9 +78,9 @@ class LanguagesManagment extends Controller
         $language = Language::findOrFail($language_id);
 
         if ($language->delete()) {
-            return redirect()->route('DisplayCategories');
+            return redirect()->route('DisplayLanguages')->with('success', 'Language Deleted successfully!');
         } else {
-            echo "Deletion procsses has faild";
+            return redirect()->route('DisplayLanguages')->with('success', 'Language Deletetion Faild!');
         }
     }
 }

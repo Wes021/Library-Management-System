@@ -97,6 +97,7 @@
         
     </div>
     <div class="container profile-container">
+        @include('common.alert')
         <form action="{{ route('UpdateUser',$user->user_id) }}" method="POST">
             @csrf
         <div class="profile-header">

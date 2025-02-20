@@ -62,6 +62,7 @@
 <body>
     @include('layouts.UserNavbar2')
     <div class="container">
+        @include('common.alert')
         <h2>Borrow a Book</h2>
         <form action="{{ route('NewBorrow') }}" id="borrowForm" method="GET">
             @csrf
@@ -108,7 +109,7 @@
         </form>
 
 
-        
+        <a href="{{ route('/') }}">Cancel</a>
     </div>
 
     

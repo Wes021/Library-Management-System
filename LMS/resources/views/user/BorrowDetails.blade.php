@@ -93,24 +93,15 @@
 
     @include('layouts.UserNavbar2') <!-- Always Include Navbar -->
     @include('layouts.UserSideNavbar')
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
+   
     <div class="content">
 
     </div>
+    @include('common.alert')
     @foreach ($borrows as $borrow)
     <div class="container profile-container">
         <div class="profile-header">
-
+            
             <div class="profile-name" id="profileName">Borrow Details</div>
         </div>
         
@@ -158,6 +149,8 @@
 
     </div>
     @endforeach
+
+    <a href="{{ route('dashboard') }}">Dashboard</a>
 </body>
 
 </html>

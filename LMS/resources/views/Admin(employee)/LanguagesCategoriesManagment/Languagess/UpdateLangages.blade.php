@@ -94,6 +94,7 @@
 <body>
 
 <div class="container">
+    @include('common.alert')
     <h2>Update Language</h2>
 
     <form action="{{ route('UpdateLanguages', $language->language_id) }}" method="POST">

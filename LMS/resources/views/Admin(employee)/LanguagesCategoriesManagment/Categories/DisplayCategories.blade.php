@@ -99,6 +99,7 @@
     @include('layouts.AdminNavbar')
 
 <div class="container">
+    @include('common.alert')
     <h2>Books Category List</h2>
 
     <table>
@@ -115,7 +116,7 @@
                     <td>{{ $book_category->book_category_id }}</td>
                     <td>{{ $book_category->book_category }}</td>
                     <td class="action-links">
-                        <a href="{{ route('EditForm', ['book_category_id' => $book_category->book_category_id]) }}">Edit</a>
+                        <a href="{{ route('EditCategoriesForm', ['book_category_id' => $book_category->book_category_id]) }}">Edit</a>
                         
                         <a href="{{ route('DeleteCategory', ['book_category_id' => $book_category->book_category_id]) }}" class="delete">Delete</a>
                     </td>
@@ -123,7 +124,8 @@
             @endforeach
         </tbody>
     </table>
-    <a href="{{ route('Addcategory') }}" class="btn-add">Add New Category</a>
+    <a href="{{ route('Addcategory') }}" class="btn-add">Add New Category</a><br>
+    <a href="{{ route('DisplayCategories') }}">Back</a>
 </div>
 
 </body>

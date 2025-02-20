@@ -40,7 +40,7 @@ Route::get('user/{user_id}/edit', [userAccount::class, 'UserEditForm'])->name('U
 Route::post('/user/{user_id}/update', [userAccount::class, 'UpdateUser'])->name('UpdateUser');
 Route::Get('user/{user_id}/deleteaccount', [userAccount::class, 'DeleteUserAccount'])->name('DeleteUserAccount');
 Route::get('/dashboard', [userAccount::class, 'UserDashboard'])->name('dashboard');
-Route::get('/dashboard/myborrows',[UserServices::class,'DisplayBorrows'])->name('DisplayBorrows');
+Route::get('/dashboard/myborrows',[UserServices::class,'DisplayBorrows'])->name('DisplayBorrow');
 Route::get('/dashboard/{borrow_id}/myborrows',[UserServices::class,'DeleteBorrow'])->name('DeleteBorrow');
 
 Route::get('/dashboard/{borrow_id}/returnBorrow',[UserServices::class,'returnBorrow'])->name('returnBorrow');
@@ -106,7 +106,7 @@ Route::get('/Addbook', function () {
     return view('Admin(employee).BookManagament.addbook');
 })->name('Addbook');
 Route::get('/AddBooks', [BookManagament::class, 'AddBook'])->name('AddBook');
-Route::get('books/{book_id}/edit', [BookManagament::class, 'EditForm'])->name('EditForme');
+Route::get('books/{book_id}/edit', [BookManagament::class, 'EditForm'])->name('EditForm');
 Route::post('/books/{book_id}/update', [BookManagament::class, 'UpdateBook'])->name('UpdateBook');
 Route::get('/DisplayBooks', [BookManagament::class, 'DisplayBooks'])->name('DisplayBooks');
 Route::get('/DeleteBook/{book_id}/delete', [BookManagament::class, 'DeleteBook'])->name('DeleteBook');
@@ -135,7 +135,7 @@ Route::get('/DisplayBorrows',[BorrowsManagment::class,'DisplayBorrows'])->name('
 //////////////////////////////////CategoryManagment/////////////////////////////////////////////////////////////////////////CategoryManagment///////////
 
 Route::get('/DisplayCategories', [CategoryManagment::class, 'DisplayCategories'])->name('DisplayCategories');
-Route::get('books/{book_category_id}/editcategory', [CategoryManagment::class, 'EditForm'])->name('EditForm');
+Route::get('books/{book_category_id}/editcategory', [CategoryManagment::class, 'EditForm'])->name('EditCategoriesForm');
 Route::post('books/{book_category_id}/updatecategory', [CategoryManagment::class, 'UpdateCategory'])->name('UpdateCa');
 Route::get('/AddCategory', [CategoryManagment::class, 'AddCategory'])->name('AddCategory');
 Route::get('/Addcategory', function () {

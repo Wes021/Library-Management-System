@@ -111,7 +111,7 @@
                     <th>Due</th>
                     <th>Fine</th>
                     <th>Status</th>
-                    <th>Actions</th>
+                    
                 </tr>
             </thead>
             <tbody id="booksTable">
@@ -134,15 +134,12 @@
                         @else status-borrowed @endif">
                         {{ $borrow->borrow_status }}
                     </td>
-                        <td class="actions">
-                            <a href="{{ route('EditForme', ['book_id' => $borrow->book_id]) }}">Edit</a> |
-                            <a href="{{ route('DeleteBook', ['book_id' => $borrow->book_id]) }}">Delete</a>
-                        </td>
+                       
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        <a href="">Return</a>
+        <a href="{{ route('/') }}">Return Home</a>
     </div>
 </body>
 </html>

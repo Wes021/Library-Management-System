@@ -33,7 +33,7 @@ class SuperAdminAuthinticate extends Controller
             // Redirect to the Super Admin Dashboard
             return redirect()->route('SuperAdminDashboard');
         } else {
-            return back()->withErrors(['email' => 'Invalid credentials']);
+            return back()->with(['error' => 'Your Email or password is incorrect']);//alert
         }
     }
 

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
+use PhpParser\Node\Expr\AssignOp\Div;
 
 class userAccount extends Controller
 {
@@ -44,11 +45,11 @@ class userAccount extends Controller
             'profile_picture' => $validated['profile_picture'],  // Allow null for now
         ]);
 
-        if ($newuser) {
-            return redirect()->route('/');
-        } else {
-            return redirect()->back();
-        }
+        if($newuser){
+            return redirect()->route('/')->with('success', 'Account created Successfully!'+'Welcome'+$validated['name']);
+       }else{
+            return redirect()->back()->with('error', 'Sign up faild! please try again');
+       }
     }
 
 
@@ -77,7 +78,7 @@ class userAccount extends Controller
 
             return redirect()->route('/');
         } else {
-            return back()->withErrors(['email' => 'Invalid email or password']);
+            return redirect()->back()->with(['error' => 'Invalid email or password']);
         }
     }
 
@@ -111,10 +112,11 @@ class userAccount extends Controller
             'profile_picture' => 'nullable|string|url',
         ]);
 
+
         if ($user->update($validatedData)) {
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard')->with('success', 'Profile updated successfully!');
         } else {
-            return back()->with('success', 'Profile updated successfully!');
+            return redirect()->back()->with('error', 'Profile Update Faild!');
         }
     }
 
@@ -131,7 +133,9 @@ class userAccount extends Controller
     {
         $user = User::findOrFail($user_id);
         if ($user->delete()) {
-            return redirect()->route('/');
+            return redirect()->route('/')->with('success', 'Your Account was deleted successfully, sorry to see you go :(');
+        }else{
+            return redirect()->back()->with('error', 'Your Account deletion faild successfully, Glad to hear that ;)');
         }
     }
 }

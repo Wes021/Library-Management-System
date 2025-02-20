@@ -97,6 +97,7 @@
         
     </div>
     <div class="container profile-container">
+        @include('common.alert')
         <div class="profile-header">
             <img src="{{ $user['profile_picture'] }}" alt="Profile Picture" class="profile-image" id="profileImage">
             <div class="profile-name" id="profileName">{{ $user['name'] }}</div>

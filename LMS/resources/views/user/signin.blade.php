@@ -14,6 +14,7 @@
             <div class="card shadow">
                 <div class="card-header bg-primary text-white text-center">
                     <h4>Sign in</h4>
+                    @include('common.alert')
                 </div>
                 <div class="card-body">
                     <form action="{{ route('signin') }}" method="post">

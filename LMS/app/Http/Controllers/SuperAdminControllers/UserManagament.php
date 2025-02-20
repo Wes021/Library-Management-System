@@ -31,16 +31,26 @@ class UserManagament extends Controller
     {
         $user = User::findOrFail($user_id);
 
-        $user->update([
+        $user=$user->update([
             'status' => $request->status,
         ]);
+
+        if($user){
+            return redirect()->route('DisplayUsers')->with('success', 'User Status Updated Successfully!');
+       }else{
+            return redirect()->back()->with('error', 'User Update Failed!');
+       }
     }
 
     public function RemoveUser($user_id)
     {
         $user = User::findOrFail($user_id);
         if ($user->delete()) {
-            return redirect()->back();
+            return redirect()->route('DisplayUsers')->with('success', 'User Deleted Successfully!');
+        }else{
+            return redirect()->route('DisplayUsers')->with('error', 'User Deletion Faild!');
         }
+
+
     }
 }

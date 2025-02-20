@@ -94,6 +94,7 @@
 <body>
     @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
     <h2>Update User Status</h2>
+    @include('common.alert')
 
     <form action="{{route('UpdateStatus', $user->user_id)}}" method="POST">
         @csrf

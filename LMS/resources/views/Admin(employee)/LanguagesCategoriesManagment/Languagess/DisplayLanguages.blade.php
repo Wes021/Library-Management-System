@@ -82,6 +82,7 @@
 <body>
 
 <div class="container">
+    @include('common.alert')
     <h2>Languages List</h2>
     <table>
         <thead>
@@ -105,7 +106,8 @@
         </tbody>
     </table>
 
-    <a href="{{ route('Addlanguage') }}">Add Language</a>
+    <a href="{{ route('Addlanguage') }}">Add Language</a><br>
+    <a href="{{ route('DisplayLanguages') }}">Back</a>
 </div>
 
 </body>

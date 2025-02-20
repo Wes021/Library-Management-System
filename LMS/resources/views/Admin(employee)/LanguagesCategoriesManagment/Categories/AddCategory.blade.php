@@ -93,6 +93,7 @@
 <body>
 
 <div class="container">
+    @include('common.alert')
     <h2>Add Category</h2>
 
     <form action="{{ route('AddCategory') }}" method="get">

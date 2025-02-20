@@ -21,10 +21,17 @@ class CategoryManagment extends Controller
             $randomId = random_int(10, 99);
         } while (Book::where('book_id', $randomId)->exists());
 
-        Book_category::create([
+        $category=Book_category::create([
             'book_category_id' => $randomId,
             'book_category' => $validated['category_name'],
         ]);
+
+        if($category){
+            return redirect()->back()->with('success', 'Category '+$validated['category_name'] +' Added successfully!');
+        }else{
+            return redirect()->back()->with('error', 'Add Category Faild!');
+        }
+
     }
 
 
@@ -47,9 +54,16 @@ class CategoryManagment extends Controller
     {
         $book_category = Book_category::findOrFail($book_category_id);
 
-        $book_category->update([
+       $category=$book_category->update([
             'book_category' => $request->book_category,
         ]);
+
+
+        if($category){
+            return redirect()->back()->with('success', 'Category updated successfully!');
+        }else{
+            return redirect()->back()->with('error', 'Category Update Faild!');
+        }
     }
 
     public function DeleteCategory($book_category_id)
@@ -57,9 +71,9 @@ class CategoryManagment extends Controller
         $book_category = Book_category::findOrFail($book_category_id);
 
         if ($book_category->delete()) {
-            return redirect()->route('DisplayCategories');
+            return redirect()->route('DisplayCategories')->with('success', 'Category Deleted successfully!');
         } else {
-            echo "Deletion procsses has faild";
+            return redirect()->route('DisplayCategories')->with('error', 'Category Deletetion failed!');
         }
     }
 }

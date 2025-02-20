@@ -100,6 +100,7 @@
 <body>
 
 <div class="container">
+    @include('common.alert')
     <h2>Edit Book</h2>
 
     <form action="{{ route('UpdateBook', $book->book_id) }}" method="POST">
