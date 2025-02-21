@@ -24,7 +24,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             background: #fff;
             padding: 20px;
@@ -123,6 +123,7 @@
 </head>
 <body>
     @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
+    @include('layouts.SuperAdminSideNavbar')
     <div class="container">
         @include('common.alert')
         <h2>Employees List</h2>
@@ -158,7 +159,7 @@
                 @endforeach
             </tbody>
         </table>
-        <a href="{{ route('DisplayEmployees') }}">Back</a>
+        <a href="{{ route('SuperAdminDashboard') }}">Back</a>
     </div>
 
 </body>

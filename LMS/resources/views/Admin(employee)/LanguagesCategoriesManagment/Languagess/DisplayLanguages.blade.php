@@ -107,7 +107,7 @@
     </table>
 
     <a href="{{ route('Addlanguage') }}">Add Language</a><br>
-    <a href="{{ route('DisplayLanguages') }}">Back</a>
+    <a href="{{ route('AdminDashboard') }}">Return</a>
 </div>
 
 </body>

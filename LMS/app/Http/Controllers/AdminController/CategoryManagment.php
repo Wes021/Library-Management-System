@@ -18,7 +18,7 @@ class CategoryManagment extends Controller
         ]);
 
         do {
-            $randomId = random_int(10, 99);
+            $randomId = random_int(10, 999);
         } while (Book::where('book_id', $randomId)->exists());
 
         $category=Book_category::create([
@@ -27,7 +27,7 @@ class CategoryManagment extends Controller
         ]);
 
         if($category){
-            return redirect()->back()->with('success', 'Category '+$validated['category_name'] +' Added successfully!');
+            return redirect()->back()->with('success', 'Category '.$validated['category_name'] .' Added successfully!');
         }else{
             return redirect()->back()->with('error', 'Add Category Faild!');
         }

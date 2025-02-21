@@ -129,28 +129,33 @@
     </div>
 
     <div class="book-list">
-        @foreach ($books as $book)
-            <div class="book" onclick="location.href='{{ route('BookDetails', $book->book_id) }}'">
-                <img src="{{ $book->image_url }}" alt="N/A">
-                <h3>{{ $book->book_title }}</h3>
-                <p><span>Author:</span> {{ $book->Publisher }}</p>
-                <p><span>ISBN:</span> {{ $book->ISBN }}</p>
-                <p><span>Language:</span> {{ $book->language_name }}</p>
-                <p><span>Category:</span> {{ $book->book_category }}</p>
-                <p class="book-status
-                    @if($book->status == 1)
-                        available
-                    @elseif($book->status == 2 || $book->book_status == 3)
-                        damaged
-                    @else
-                        not-available
-                    @endif
-                ">
-                    {{ $book->book_status }}
-                </p>
-            </div>
-        @endforeach
+        @if ($books->isEmpty())
+            <p style="text-align: center; font-size: 1.2rem; color: #888;">No books available.</p>
+        @else
+            @foreach ($books as $book)
+                <div class="book" onclick="location.href='{{ route('BookDetails', $book->book_id) }}'">
+                    <img src="{{ $book->image_url }}" alt="N/A">
+                    <h3>{{ $book->book_title }}</h3>
+                    <p><span>Author:</span> {{ $book->Publisher }}</p>
+                    <p><span>ISBN:</span> {{ $book->ISBN }}</p>
+                    <p><span>Language:</span> {{ $book->language_name }}</p>
+                    <p><span>Category:</span> {{ $book->book_category }}</p>
+                    <p class="book-status
+                        @if($book->status == 1)
+                            available
+                        @elseif($book->status == 2 || $book->book_status == 3)
+                            damaged
+                        @else
+                            not-available
+                        @endif
+                    ">
+                        {{ $book->book_status }}
+                    </p>
+                </div>
+            @endforeach
+        @endif
     </div>
+    
 </div>
 
 <script>

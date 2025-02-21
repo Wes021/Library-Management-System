@@ -125,7 +125,7 @@
         </tbody>
     </table>
     <a href="{{ route('Addcategory') }}" class="btn-add">Add New Category</a><br>
-    <a href="{{ route('DisplayCategories') }}">Back</a>
+    <a href="{{ route('AdminDashboard') }}">Return</a>
 </div>
 
 </body>

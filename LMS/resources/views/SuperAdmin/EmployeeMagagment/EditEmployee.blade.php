@@ -27,7 +27,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 160px
+            margin-top: 180px
         }
 
         h2 {
@@ -100,9 +100,6 @@
         @include('common.alert')
         <h2>Edit Employee</h2>
 
-        @if(session('success'))
-            <p class="success-message">{{ session('success') }}</p>
-        @endif
 
         <form action="{{ route('UpdateEmployee', $admin->admin_id) }}" method="POST">
             @csrf

@@ -135,8 +135,8 @@
             </select>
             <select id="statusFilter" onchange="applyFilters()">
                 <option value="">All Status</option>
-                <option value="Available">Available</option>
-                <option value="Unavailable">Unavailable</option>
+                <option value="available">Available</option>
+                <option value="not available">Not available</option>
             </select>
             <select id="categoryFilter" onchange="applyFilters()">
                 <option value="">All Categories</option>
@@ -185,7 +185,7 @@
                 @endforeach
             </tbody>
         </table>
-        <a href="">Return</a>
+        <a href="{{ route('AdminDashboard') }}">Return</a>
     </div>
 
     <script>
@@ -193,7 +193,7 @@
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
             const language = document.getElementById('languageFilter').value.toLowerCase();
             const year = document.getElementById('yearFilter').value;
-            const status = document.getElementById('statusFilter').value.toLowerCase();
+            const status = document.getElementById('statusFilter').value;
             const category = document.getElementById('categoryFilter').value.toLowerCase();
 
             const rows = document.querySelectorAll('.book-row');

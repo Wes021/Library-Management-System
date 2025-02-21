@@ -46,7 +46,7 @@ class userAccount extends Controller
         ]);
 
         if($newuser){
-            return redirect()->route('/')->with('success', 'Account created Successfully!'+'Welcome'+$validated['name']);
+            return redirect()->route('/')->with('success', 'Account created Successfully!'.'Welcome'+$validated['name']);
        }else{
             return redirect()->back()->with('error', 'Sign up faild! please try again');
        }

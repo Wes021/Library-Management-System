@@ -91,6 +91,7 @@
 </head>
 <body>
     @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
+    @include('layouts.SuperAdminSideNavbar')
     <div class="container">
         @include('common.alert')
         <h2>Update Role</h2>

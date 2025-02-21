@@ -23,9 +23,9 @@ class RoleManagment extends Controller
         ]);
 
         if($role){
-            return redirect()->back()->with('success', 'Role '+$validated['role_name']+' Successfully!');
+            return redirect()->back()->with('success', 'Role '.$validated['role_name'].' Successfully!');
         }else{
-            return redirect()->back()->with('error', 'Role '+$validated['role_name']+' Add Faild!');
+            return redirect()->back()->with('error', 'Role '.$validated['role_name'].' Add Faild!');
        }
     }
 

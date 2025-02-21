@@ -145,11 +145,11 @@
                 <label>
                     Language <span class="req">*</span>
                 </label>
-                <select name="language" id="role" required>
-                    <option value="">Select</option>
-                    <option value="1">Arabic</option>
-                    <option value="2">English</option>
-                    <option value="3">German</option>
+                <select name="language" id="">
+                <option value="">Select</option>
+                    @foreach ($languages as $language)
+                        <option value="{{ $language->language_id }}">{{ $language->language_name}}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -166,9 +166,10 @@
                 </label>
                 <select name="category" id="role" required>
                     <option value="">Select</option>
-                    <option value="1">Science</option>
-                    <option value="2">Art</option>
-                    <option value="3">Chemistry</option>
+                    @foreach ($categories as $category)
+                    <option value="{{$category->book_category_id}}">{{$category->book_category}}</option>
+                    @endforeach
+                
                 </select>
             </div>
 
@@ -185,9 +186,9 @@
                 </label>
                 <select name="status" id="role" required>
                     <option value="">Select</option>
-                    <option value="1">Available</option>
-                    <option value="2">Not Available</option>
-                    <option value="3">Damaged</option>
+                    @foreach ($statuses as $status)
+                    <option value="{{$status->book_status_id}}">{{$status->book_status}}</option>
+                    @endforeach
                 </select>
             </div>
 

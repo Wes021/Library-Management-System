@@ -90,8 +90,10 @@
     </style>
 </head>
 <body>
-  @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
+    @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
+    @include('layouts.SuperAdminSideNavbar')
     <div class="container">
+        @include('common.alert')
         @include('common.alert')
         <h2>Add Role</h2>
         <form action="{{ route('AddRole') }}" method="GET">

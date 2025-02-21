@@ -24,9 +24,9 @@ class LanguagesManagment extends Controller
             'language_name' => $validated['language_name'],
         ]);
         if($language){
-            return redirect()->back()->with('success', 'Language'+$validated['language_name']+' Added successfully!');
+            return redirect()->back()->with('success', 'Language ' . $validated['language_name'] . ' added successfully!');
         }else{
-            return redirect()->back()->with('error', 'Language'+$validated['language_name']+' Adding faild!');
+            return redirect()->back()->with('error', 'Language'.$validated['language_name'].' Adding faild!');
         }
 
     }

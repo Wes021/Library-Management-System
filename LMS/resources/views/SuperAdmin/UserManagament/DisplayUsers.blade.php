@@ -119,7 +119,8 @@
 </head>
 <body>
 
-@include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
+    @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
+    @include('layouts.SuperAdminSideNavbar')
     <div class="container">
         @include('common.alert')
         <h2>Users List</h2>
@@ -161,7 +162,8 @@
                 @endforeach
             </tbody>
         </table>
-        <a href="{{ route('DisplayUsers') }}" style="text-align: center; display: block; margin-top: 20px;">Back</a>
+        <a href="{{ route('SuperAdminDashboard') }}" style="text-align: center; display: block; margin-top: 20px;">Back to dashboard</a>
+        
     </div>
 
 </body>

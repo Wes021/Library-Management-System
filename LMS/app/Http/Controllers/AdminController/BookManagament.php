@@ -4,11 +4,26 @@ namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\Book_category;
+use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class BookManagament extends Controller
 {
+
+    public function index(){
+        $languages=Language::all();
+
+        $categories=Book_category::all();
+
+        $statuses=DB::table('book_status')
+        ->select('book_status.*')
+        ->get();
+
+        return view('Admin(employee).BookManagament.addbook', compact('languages','categories','statuses'));
+    }
+
     public function AddBook(Request $request)
     {
         $validated = $request->validate([
@@ -45,7 +60,7 @@ class BookManagament extends Controller
 
 
         if($book){
-            return redirect()->route('DisplayBooks')->with(['success' => 'New Book was Added!']);
+            return redirect()->route('Addbook')->with(['success' => 'New Book was Added!']);
 
         }else{
             return redirect()->back()->with(['error' => 'Adding Book failed!, please try again']);

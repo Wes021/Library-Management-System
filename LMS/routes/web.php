@@ -15,13 +15,7 @@ use App\Http\Controllers\UserController\userAccount;
 use App\Http\Controllers\UserController\UserServices;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminRoleMiddleware;
-// Route::get('/', function () {
-//     return view('LoginSignin.login');
-// });
 
-// Route::get('/signin', function () {
-//     return view('LoginSignin.signup');
-// });
 
 
 ///////////////////START/////////////USER/////////////////////////////////////////USER////////////////////////////////////START//////////////
@@ -102,9 +96,11 @@ Route::get('/DeleteUser/{user_id}/delete', [UserManagament::class, 'RemoveUser']
 //////////////////START//////////////EMPLOYEE/////////////////////////////////////////EMPLOYEE////////////////////////////////START//////////////////
 
 //////////////////////////////////BookManagment/////////////////////////////////////////////////////////////////////////BookManagment///////////
-Route::get('/Addbook', function () {
-    return view('Admin(employee).BookManagament.addbook');
-})->name('Addbook');
+// Route::get('/Addbook', function () {
+//     return view('Admin(employee).BookManagament.addbook');
+// })->name('Addbook');
+
+Route::get('/Addbook',[BookManagament::class, 'index'])->name('Addbook');
 Route::get('/AddBooks', [BookManagament::class, 'AddBook'])->name('AddBook');
 Route::get('books/{book_id}/edit', [BookManagament::class, 'EditForm'])->name('EditForm');
 Route::post('/books/{book_id}/update', [BookManagament::class, 'UpdateBook'])->name('UpdateBook');
@@ -113,9 +109,7 @@ Route::get('/DeleteBook/{book_id}/delete', [BookManagament::class, 'DeleteBook']
 //////////////////////////////////BookManagment/////////////////////////////////////////////////////////////////////////BookManagment///////////
 
 //////////////////////////////////Profile/////////////////////////////////////////////////////////////////////////Profile///////////
-// Route::get('/AdminDashboard', function () {
-//     return view('Admin(employee).AdminDashboard');
-// })->name('AdminDashboard');
+
 
 Route::post('/empsignin',[AdminAuthinticate::class,'AdmineSignin'])->name('empsignin');
 
