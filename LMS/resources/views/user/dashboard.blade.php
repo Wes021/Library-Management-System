@@ -6,15 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #444;
+            --text-color: white;
+            --hover-color: #555;
+            --navbar-height: 70px; /* Height of the navbar */
+            --sidebar-width: 250px; /* Width of the sidebar */
+        }
+
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f7fc;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
+        /* Content Area */
+        .content {
+            margin-top: var(--navbar-height); /* Adjust for navbar height */
+            padding: 20px;
+            transition: margin-left 0.3s;
+            flex: 1;
+        }
+
+        /* Profile Container */
         .profile-container {
             max-width: 800px;
-            margin: 50px auto;
+            margin: 20px auto;
             padding: 30px;
             background-color: white;
             border-radius: 10px;
@@ -87,39 +110,39 @@
 </head>
 
 <body>
-    <br>
-    <br>
-    <br>
-    @include('layouts.UserNavbar2') <!-- Always Include Navbar -->
-   @include('layouts.UserSideNavbar')
+    <!-- Include Navbar and Sidebar -->
+    @include('layouts.NavSidebarUser')
 
+    <!-- Content Area -->
     <div class="content">
-        
-    </div>
-    <div class="container profile-container">
         @include('common.alert')
-        <div class="profile-header">
-            <img src="{{ $user['profile_picture'] }}" alt="Profile Picture" class="profile-image" id="profileImage">
-            <div class="profile-name" id="profileName">{{ $user['name'] }}</div>
+        <div class="profile-container">
+            <div class="profile-header">
+                <img src="{{ $user['profile_picture'] }}" alt="Profile Picture" class="profile-image" id="profileImage">
+                <div class="profile-name" id="profileName">{{ $user['name'] }}</div>
+            </div>
+
+            <div class="profile-info">
+                <h5>Name:</h5>
+                <p id="profileEmail">{{ $user['name'] }}</p>
+
+                <h5>Email:</h5>
+                <p id="profileEmail">{{ $user['email'] }}</p>
+
+                <h5>Phone Number:</h5>
+                <p id="profilePhone">{{ $user['phone_number'] }}</p>
+
+                <h5>Gender:</h5>
+                <p id="profileGender">{{ $user['gender'] }}</p>
+            </div>
+
+            <a href="{{ route('UserEditForm', ['user_id' => $user['user_id']]) }}" class="btn-edit">Edit Profile</a><br>
+            <a href="{{ route('DeleteUserAccount', ['user_id' => $user['user_id']]) }}" style="color: red;">Delete Account</a>
         </div>
-
-        <div class="profile-info">
-            <h5>Name:</h5>
-            <p id="profileEmail">{{ $user['name'] }}</p>
-
-            <h5>Email:</h5>
-            <p id="profileEmail">{{ $user['email'] }}</p>
-
-            <h5>Phone Number:</h5>
-            <p id="profilePhone">{{ $user['phone_number'] }}</p>
-
-            <h5>Gender:{{ $user['gender'] }}</h5>
-            <p id="profileGender"></p>
-        </div>
-        <a href="{{ route('UserEditForm', ['user_id' => $user['user_id']]) }}">Edit</a><br>
-        <a href="{{ route('DeleteUserAccount',['user_id' => $user['user_id']]) }}">Delete Account</a>
-        
     </div>
+
+    
+        
 </body>
 
 </html>

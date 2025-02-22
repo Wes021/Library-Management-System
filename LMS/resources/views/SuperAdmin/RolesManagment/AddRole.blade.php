@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Add Role</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #444;
+            --text-color: white;
+            --hover-color: #555;
+            --navbar-height: 70px; /* Height of the navbar */
+            --sidebar-width: 250px; /* Width of the sidebar */
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,10 +28,19 @@
         body {
             background: #f8f9fa;
             display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Content Area */
+        .content {
+            margin-top: var(--navbar-height); /* Adjust for navbar height */
+            padding: 20px;
+            transition: margin-left 0.3s;
+            flex: 1;
+            display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            flex-direction: column;
         }
 
         .container {
@@ -29,7 +50,6 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 350px;
             text-align: center;
-            margin-top: 180px;
         }
 
         h2 {
@@ -89,29 +109,34 @@
         }
     </style>
 </head>
-<body>
-    @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
-    @include('layouts.SuperAdminSideNavbar')
-    <div class="container">
-        @include('common.alert')
-        @include('common.alert')
-        <h2>Add Role</h2>
-        <form action="{{ route('AddRole') }}" method="GET">
-            @csrf
-            <div class="field-wrap">
-                <label>Role ID</label>
-                <input value="Automatically generated" name="name" type="text" disabled/>
-            </div>
-        
-            <div class="field-wrap">
-                <label>Role Name<span class="req">*</span></label>
-                <input name="role_name" type="text" required autocomplete="off"/>
-            </div>
 
-            <button type="submit">Add Role</button>
-        </form>
-        <a href="{{ route('DisplayRoles') }}" class="back-link">Back to List</a>
+<body>
+    
+
+    <!-- Content Area -->
+    <div class="content">
+        <div class="container">
+            @include('common.alert')
+            <h2>Add Role</h2>
+            <form action="{{ route('AddRole') }}" method="GET">
+                @csrf
+                <div class="field-wrap">
+                    <label>Role ID</label>
+                    <input value="Automatically generated" name="name" type="text" disabled />
+                </div>
+
+                <div class="field-wrap">
+                    <label>Role Name<span class="req">*</span></label>
+                    <input name="role_name" type="text" required autocomplete="off" />
+                </div>
+
+                <button type="submit">Add Role</button>
+            </form>
+            <a href="{{ route('DisplayRoles') }}" class="back-link">Back to List</a>
+        </div>
     </div>
 
+    
 </body>
+
 </html>

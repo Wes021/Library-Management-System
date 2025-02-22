@@ -78,8 +78,7 @@
     <br>
     <br>
     <br><br>
-    @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
-    @include('layouts.SuperAdminSideNavbar')
+    
   
 
    <div class="content">

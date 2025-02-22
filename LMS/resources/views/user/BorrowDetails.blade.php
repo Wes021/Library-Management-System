@@ -5,16 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #444;
+            --text-color: white;
+            --hover-color: #555;
+            --navbar-height: 70px; /* Height of the navbar */
+            --sidebar-width: 250px; /* Width of the sidebar */
+        }
+
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f7fc;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
+        /* Content Area */
+        .content {
+            margin-top: var(--navbar-height); /* Adjust for navbar height */
+            padding: 20px;
+            transition: margin-left 0.3s;
+            flex: 1;
+        }
+
+        /* Profile Container */
         .profile-container {
             max-width: 800px;
-            margin: 50px auto;
+            margin: 20px auto;
             padding: 30px;
             background-color: white;
             border-radius: 10px;
@@ -87,24 +109,17 @@
 </head>
 
 <body>
-    <br>
-    <br>
-    <br>
+    <!-- Include Navbar and Sidebar -->
+    @include('layouts.NavSidebarUser')
 
-    @include('layouts.UserNavbar2') <!-- Always Include Navbar -->
-    @include('layouts.UserSideNavbar')
-   
+    <!-- Content Area -->
     <div class="content">
-
-    </div>
-    @include('common.alert')
-    @foreach ($borrows as $borrow)
-    <div class="container profile-container">
-        <div class="profile-header">
-            
-            <div class="profile-name" id="profileName">Borrow Details</div>
-        </div>
-        
+        @include('common.alert')
+        @foreach ($borrows as $borrow)
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-name" id="profileName">Borrow Details</div>
+            </div>
             <div class="profile-info">
                 <h5>Borrow ID:</h5>
                 <p id="profileEmail">{{ $borrow->borrow_id }}</p>
@@ -124,11 +139,9 @@
                 <h5>Status</h5>
                 @if ($borrow->borrow_status_id == 8)
                 <p style="color: red" id="profileGender">{{$borrow->borrow_status}}</p>
-                
                 @else
                 <p style="color:green" id="profileGender">{{$borrow->borrow_status}}</p>
                 @endif
-
 
                 <h5>Created:</h5>
                 <p id="profileGender">{{ $borrow->created_at }}</p>
@@ -137,20 +150,18 @@
                 <p id="profileGender">{{ $borrow->fine }}<span>$</span></p>
             </div>
 
-
             @if ($borrow->borrow_status_id == 6)
-
             @else
                 <a href="{{ route('DeleteBorrow', ['borrow_id' => $borrow->borrow_id]) }}">Delete Borrow</a> <br>
                 <a href="{{ route('returnBorrow', ['borrow_id' => $borrow->borrow_id]) }}">Return the book</a>
             @endif
+        </div>
+        @endforeach
 
-
-
+        <a href="{{ route('dashboard') }}">Dashboard</a>
     </div>
-    @endforeach
 
-    <a href="{{ route('dashboard') }}">Dashboard</a>
+    
 </body>
 
 </html>

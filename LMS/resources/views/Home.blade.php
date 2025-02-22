@@ -117,7 +117,7 @@
 </head>
 <body>
 
-@include('layouts.UserNavbar2') <!-- Navbar is included -->
+@include('layouts.NavSidebarUser') <!-- Navbar is included -->
 
 <div class="container">
     @include('common.alert')

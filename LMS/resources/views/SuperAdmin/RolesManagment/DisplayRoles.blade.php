@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Books List</title>
+    <title>Roles List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #444;
+            --text-color: white;
+            --hover-color: #555;
+            --navbar-height: 70px; /* Height of the navbar */
+            --sidebar-width: 250px; /* Width of the sidebar */
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,13 +27,17 @@
 
         body {
             background: #f8f9fa;
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
+        /* Content Area */
+        .content {
+            margin-top: var(--navbar-height); /* Adjust for navbar height */
+            padding: 20px;
+            transition: margin-left 0.3s;
+            flex: 1;
         }
 
         .container {
@@ -31,7 +47,12 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 180px
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
         }
 
         .btn {
@@ -60,7 +81,8 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px;
             border-bottom: 1px solid #ddd;
             text-align: left;
@@ -110,6 +132,18 @@
             gap: 5px;
         }
 
+        a.back-link {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #007bff;
+            font-size: 14px;
+        }
+
+        a.back-link:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             table {
                 display: block;
@@ -123,23 +157,27 @@
         }
     </style>
 </head>
+
 <body>
-    @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
-    @include('layouts.SuperAdminSideNavbar')
-    <div class="container">
-        @include('common.alert')
-        <h2>Roles List</h2>
-        <a href="{{ route('Addrole') }}" class="btn">Add Role</a>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($roles as $role)
+    <!-- Include Navbar and Sidebar -->
+    @include('layouts.NavSidebarSuperadmin')
+
+    <!-- Content Area -->
+    <div class="content">
+        <div class="container">
+            @include('common.alert')
+            <h2>Roles List</h2>
+            <a href="{{ route('Addrole') }}" class="btn">Add Role</a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($roles as $role)
                     <tr>
                         <td>{{ $role->role_id }}</td>
                         <td>{{ $role->role_name }}</td>
@@ -148,11 +186,14 @@
                             <a href="{{ route('DeleteRoles', ['role_id' => $role->role_id]) }}" class="delete">Delete</a>
                         </td>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <a href="{{ route('SuperAdminDashboard') }}">Back to dashboard</a>
+                    @endforeach
+                </tbody>
+            </table>
+            <a href="{{ route('SuperAdminDashboard') }}" class="back-link">Back to Dashboard</a>
+        </div>
     </div>
 
+   
 </body>
+
 </html>

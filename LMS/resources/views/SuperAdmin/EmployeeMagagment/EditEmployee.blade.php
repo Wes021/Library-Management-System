@@ -91,8 +91,7 @@
     </style>
 </head>
 <body>
-    @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
-    @include('layouts.SuperAdminSideNavbar')
+   
  
     
 

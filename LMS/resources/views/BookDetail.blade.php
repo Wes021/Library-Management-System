@@ -41,7 +41,8 @@
 </head>
 
 <body>
-    @include('layouts.UserNavbar2')
+    
+    @include('layouts.NavSidebarUser')
     <div class="container">
         @include('common.alert')
         <h1>{{ $book->book_title }}</h1>

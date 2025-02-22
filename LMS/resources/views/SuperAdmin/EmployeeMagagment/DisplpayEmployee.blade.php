@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #444;
+            --text-color: white;
+            --hover-color: #555;
+            --navbar-height: 70px; /* Height of the navbar */
+            --sidebar-width: 250px; /* Width of the sidebar */
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,7 +26,17 @@
 
         body {
             background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Content Area */
+        .content {
+            margin-top: var(--navbar-height); /* Adjust for navbar height */
             padding: 20px;
+            transition: margin-left 0.3s;
+            flex: 1;
         }
 
         h2 {
@@ -30,7 +52,6 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 180px
         }
 
         .btn {
@@ -58,7 +79,8 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px;
             border-bottom: 1px solid #ddd;
             text-align: left;
@@ -121,29 +143,33 @@
         }
     </style>
 </head>
+
 <body>
-    @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
-    @include('layouts.SuperAdminSideNavbar')
-    <div class="container">
+    <!-- Include Navbar and Sidebar -->
+    @include('layouts.NavSidebarSuperadmin')
+
+    <!-- Content Area -->
+    <div class="content">
         @include('common.alert')
-        <h2>Employees List</h2>
+        <div class="container">
+            <h2>Employees List</h2>
 
-        <a href="{{ route('Addadmin') }}" class="btn">Add Employee</a>
+            <a href="{{ route('Addadmin') }}" class="btn">Add Employee</a>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Gender</th>
-                    <th>Phone Number</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($employees as $employee)
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Gender</th>
+                        <th>Phone Number</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($employees as $employee)
                     <tr>
                         <td>{{ $employee->admin_id }}</td>
                         <td>{{ $employee->name }}</td>
@@ -156,11 +182,15 @@
                             <a href="{{ route('DeleteEmployee', ['admin_id' => $employee->admin_id]) }}" class="delete">Delete</a>
                         </td>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <a href="{{ route('SuperAdminDashboard') }}">Back</a>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <a href="{{ route('SuperAdminDashboard') }}" class="btn" style="margin-top: 15px;">Back</a>
+        </div>
     </div>
 
+    
 </body>
+
 </html>

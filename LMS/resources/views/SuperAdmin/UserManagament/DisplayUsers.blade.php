@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #444;
+            --text-color: white;
+            --hover-color: #555;
+            --navbar-height: 70px; /* Height of the navbar */
+            --sidebar-width: 250px; /* Width of the sidebar */
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,8 +26,17 @@
 
         body {
             background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Content Area */
+        .content {
+            margin-top: var(--navbar-height); /* Adjust for navbar height */
             padding: 20px;
-            font-size: 16px;
+            transition: margin-left 0.3s;
+            flex: 1;
         }
 
         .container {
@@ -25,7 +46,6 @@
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 150px
         }
 
         h2 {
@@ -44,7 +64,8 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
+        th,
+        td {
             padding: 14px 20px;
             border-bottom: 1px solid #ddd;
             text-align: left;
@@ -115,31 +136,46 @@
         .action-buttons {
             display: flex;
         }
+
+        a.back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a.back-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
+
 <body>
+    <!-- Include Navbar and Sidebar -->
+    @include('layouts.NavSidebarSuperadmin')
 
-    @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
-    @include('layouts.SuperAdminSideNavbar')
-    <div class="container">
-        @include('common.alert')
-        <h2>Users List</h2>
+    <!-- Content Area -->
+    <div class="content">
+        <div class="container">
+            @include('common.alert')
+            <h2>Users List</h2>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>E-mail</th>
-                    <th>Gender</th>
-                    <th>Phone number</th>
-                    <th>Status</th>
-                    <th>Profile picture</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $user)
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>E-mail</th>
+                        <th>Gender</th>
+                        <th>Phone number</th>
+                        <th>Status</th>
+                        <th>Profile picture</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
                     <tr>
                         <td>{{ $user->user_id }}</td>
                         <td>{{ $user->name }}</td>
@@ -149,22 +185,25 @@
                         <td>{{ $user->user_status }}</td>
                         <td>
                             @if($user->profile_picture)
-                                <img src="{{ asset('storage/'.$user->profile_picture) }}" alt="Profile Picture">
+                            <img src="{{ asset('storage/'.$user->profile_picture) }}" alt="Profile Picture">
                             @else
-                                No Picture
+                            No Picture
                             @endif
                         </td>
                         <td class="action-buttons">
                             <a href="{{ route('EditUserForm', ['user_id' => $user->user_id]) }}" class="edit">Change status</a>
-                            <a href="{{ route('RemoveUser',['user_id'=>$user->user_id]) }}" class="delete">Delete</a>
+                            <a href="{{ route('RemoveUser', ['user_id' => $user->user_id]) }}" class="delete">Delete</a>
                         </td>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <a href="{{ route('SuperAdminDashboard') }}" style="text-align: center; display: block; margin-top: 20px;">Back to dashboard</a>
-        
+                    @endforeach
+                </tbody>
+            </table>
+
+            <a href="{{ route('SuperAdminDashboard') }}" class="back-link">Back to Dashboard</a>
+        </div>
     </div>
 
+   
 </body>
+
 </html>

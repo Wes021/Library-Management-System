@@ -92,8 +92,7 @@
     </style>
 </head>
 <body>
-    @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
-    @include('layouts.SuperAdminSideNavbar')
+   
     <h2>Update User Status</h2>
     @include('common.alert')
 

@@ -4,17 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>Superadmin Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #444;
+            --text-color: white;
+            --hover-color: #555;
+            --navbar-height: 70px; /* Height of the navbar */
+            --sidebar-width: 250px; /* Width of the sidebar */
+        }
+
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f7fc;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
+        /* Content Area */
+        .content {
+            margin-top: var(--navbar-height); /* Adjust for navbar height */
+            padding: 20px;
+            transition: margin-left 0.3s;
+            flex: 1;
+        }
+
+        /* Profile Container */
         .profile-container {
             max-width: 800px;
-            margin: 50px auto;
+            margin: 20px auto;
             padding: 30px;
             background-color: white;
             border-radius: 10px;
@@ -87,43 +110,37 @@
 </head>
 
 <body>
-    <br>
-    <br>
-    <br>
-    @include('layouts.SuperAdminNavbar') <!-- Always Include Navbar -->
-   @include('layouts.SuperAdminSideNavbar')
+    <!-- Include Navbar and Sidebar -->
+    @include('layouts.NavSidebarSuperadmin')
 
+    <!-- Content Area -->
     <div class="content">
-        
-    </div>
-    <div class="container profile-container">
-       
+        <div class="container profile-container">
+            <div class="profile-info">
+                <h5>ID:</h5>
+                <p id="profileEmail">{{ $superadmin->admin_id }}</p>
 
-        <div class="profile-info">
-            <h5>ID:</h5>
-            <p id="profileEmail">{{$superadmin->admin_id}}</p>
+                <h5>Name:</h5>
+                <p id="profilePhone">{{ $superadmin->name }}</p>
 
-            <h5>Name:</h5>
-            <p id="profilePhone">{{$superadmin->name}}</p>
+                <h5>Email:</h5>
+                <p id="profileGender">{{ $superadmin->email }}</p>
 
-            <h5>Email</h5>
-            <p id="profileGender">{{$superadmin->email}}</p>
+                <h5>Gender:</h5>
+                <p id="profileGender">{{ $superadmin->gender }}</p>
 
-            <h5>Gender:</h5>
-            <p id="profileGender">{{$superadmin->gender}}</p>
+                <h5>Phone Number:</h5>
+                <p id="profileEmail">{{ $superadmin->phone_number }}</p>
 
-            <h5>Phone Number</h5>
-            <p id="profileEmail">{{$superadmin->phone_number}}</p>
+                <h5>Your Role:</h5>
+                <p id="profileEmail">{{ $superadmin->role_name }}</p>
+            </div>
 
-            <h5>Your Role:</h5>
-            <p id="profileEmail">{{ $superadmin->role_name }}</p>
-
+            <a href="{{ route('SuperAdminEditForm', ['admin_id' => $superadmin->admin_id]) }}" class="btn-edit">Edit Profile</a>
         </div>
-
-        <a href="{{ route('SuperAdminEditForm', ['admin_id' => $superadmin->admin_id]) }}">Edit</a><br>
-        
-        
     </div>
+
+   
 </body>
 
 </html>
